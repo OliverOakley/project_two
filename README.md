@@ -1,4 +1,4 @@
-# QA Practical Project - D&D Character Generator
+# QA Practical Project - Prize Generator
 
 
 DISCLAIMER: This application has been purely built for educational purposes as part of QA training, and is not to be officially deployed.
@@ -8,7 +8,7 @@ DISCLAIMER: This application has been purely built for educational purposes as p
 For planning purposes, I created a Kanban Board on Trello. You can find it [here.](https://trello.com/b/9rVOaiOL/dd-character-generator)
 
 Here is the initial version of the Kanban Board, before it is fully populated:
-![kanban1](https://i.gyazo.com/49e710ae61db03817892e8facb9de35d.png)
+![kanban1](https://i.gyazo.com/03d397891dc815412e510d21de719782.png)
 
 ## User Stories:
 
