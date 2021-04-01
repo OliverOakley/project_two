@@ -15,7 +15,7 @@ The microservice application must consist of four services, utilising the follow
 * Service 1 - Front-end of the application; communicates with the other three services.  
 * Service 2 - Create a random string of letters, with at least 2 different implementations.  
 * Service 3 - Create a random set of numbers, with at least 2 different implementations.  
-* Service 4 - Create an account based on objects from services 2 and 3. Determine if the user has 'won', with two different implementations.Store account and prize winnings in a MySQL Database.  
+* Service 4 - Create an account based on objects from services 2 and 3. Determine if the user has 'won', with two different implementations. Store account and prize winnings in a MySQL Database.  
 ### Features:
 As well as adhering to the above architecture, the application must be capable of being:  
 1. Fully integrated using the Feature-Branch model into a Version Control System.  
@@ -63,13 +63,14 @@ I also used a MySQL Database to store the generated strings and numbers from ser
 
 ## CI Server - Jenkins:
 ### Jenkins Setup:
-For CI and CD, I utilised Jenkins. To connect to Jenkins, I opened port 8080 on my master-machine VM and installed Jenkins on the VM using the following Docker command:  
-    docker run -d -p 8080:8080 --name jenkins jenkins/jenkins:lts-alpine
-
-Navigating to 34.89.9.247:8080, I created a new user, installed the recommended plugins, and created a Pipeline for the Prize Generator.  
-I then connected this Pipeline to my GitHub repo's master branch, where it would execute the script from the Jenkinsfile to build and deploy.  
-As this setup was done before actually building the application, for testing purposes my initial Jenkinsfile only contained a simple script that would echo 'test' and then clear the workspace on a successful build.
-As you can see, the Pipeline had successfully connected to my GitHub and ran the Jenkinsfile script:  
+For CI and CD, I utilised Jenkins, and the initial setup was as follows:
+* I opened port 8080 on my master-machine VM.
+* Installed Jenkins on the VM using the following Docker command:  
+    * docker run -d -p 8080:8080 --name jenkins jenkins/jenkins:lts-alpine
+* Navigated to 34.89.9.247:8080, I created a new user, installed the recommended plugins, and created a Pipeline for the Prize Generator.  
+* I then connected this Pipeline to my GitHub repo's master branch, where it would execute the script from the Jenkinsfile to build and deploy.  
+* As this setup was done before actually building the application, for testing purposes my initial Jenkinsfile only contained a simple script that would echo 'test' and then clear the workspace on a successful build.
+* As you can see, the Pipeline had successfully connected to my GitHub and ran the Jenkinsfile script:  
 
 ![jenkinstest](https://i.gyazo.com/062a47a5a8f575fe00f0b8cdcd4f5e53.png)
 
