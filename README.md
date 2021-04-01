@@ -5,7 +5,7 @@ DISCLAIMER: This application has been purely built for educational purposes as p
 
 ## Planning:
 
-For planning purposes, I created a Kanban Board on Trello. You can find it here: [Search for it](https://trello.com/b/9rVOaiOL/dd-character-generator)
+For planning purposes, I created a Kanban Board on Trello. You can find it [here.](https://trello.com/b/9rVOaiOL/dd-character-generator)
 
 Here is the initial version of the Kanban Board, before it is fully populated:
 ![kanban1](https://gyazo.com/49e710ae61db03817892e8facb9de35d)
