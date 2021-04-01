@@ -8,7 +8,7 @@ DISCLAIMER: This application has been purely built for educational purposes as p
 For planning purposes, I created a Kanban Board on Trello. You can find it [here.](https://trello.com/b/9rVOaiOL/dd-character-generator)
 
 Here is the initial version of the Kanban Board, before it is fully populated:
-![kanban1](https://i.gyazo.com/03d397891dc815412e510d21de719782.png)
+![kanban1](https://i.gyazo.com/4aac637eed4855dca13ecbc25baf7575.png)
 
 ## User Stories:
 
