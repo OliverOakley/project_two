@@ -80,5 +80,5 @@ For CI and CD, I utilised Jenkins, and the initial setup was as follows:
 
 ## Credits:
 
-The application code was my own, with  spurred by the QA DevOps Practical Project specification.
+The application code was my own, with  spurred by the QA DevOps Practical Project specification.  
 Whilst the code is entirely my own, I owe a lot to the QA Community resources, my trainer Dara Oladapo, and fellow QA Trainees.
