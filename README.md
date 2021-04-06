@@ -42,9 +42,13 @@ Here is the initial version of the Kanban Board, before it is fully populated:
 
 ## Risks and Issues:
 
-| Column1     | Column2     |
-| ----------- | ----------- |
-| Header      | Title       |
+Here are the risks and issues encountered throughout the development of the project. 
+
+Here is the initial risk assessment I performed at the start of development:
+
+| Description     | Evaluation     | Likelihood     | Impact Level  | Responsibility    | Response          | Control Measures      |
+| --------------- | -------------- | ---------------| --------------| ------------------| ------------------| ----------------------|
+| Header     dfdfdfdfdfdf     | Title          | Medium         | Very High     | Mine
 | Paragraph   | Text        |
   
 ## Cloud Server - GCP:
