@@ -85,15 +85,28 @@ I also created a MySQL Database to store the generated strings and numbers from 
 ## Containerisation and Orchestration - Docker:
 ### Docker Setup:
 
-* To install docker, I ran the following command:  
+Docker, Docker Compose, and Docker Swarm are my containerisation and orchestration tools.
+
+I set up Docker and Docker Compose as follows:
+* To install docker, I ran the following script:  
     * sudo apt-get update  
       sudo apt install curl -y  
       curl https://get.docker.com | sudo bash  
-
-
+* I added current user to the group, and then restarted the terminal.
+    * sudo usermod -aG docker $(whoami)
+* To install Docker Compose I ran the following script:
+    * sudo apt update
+      sudo apt install -y curl jq
+      version=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r '.tag_name')
+      sudo curl -L "https://github.com/docker/compose/releases/download/${version}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+      sudo chmod +x /usr/local/bin/docker-compose
+* I then created a docker-compose.yaml file where Docker Compose will be configured. 
+* Lastly, to store images, I created a DockerHub account and image repository, that is connected to my GitHub repository. 
+    * Originally I planned to use Nexus, but had some issues getting it working, as stated under Risks and Issues.
 
 ## CI/CD Server - Jenkins:
 ### Jenkins Setup:
+
 For CI and CD, I utilised Jenkins, and the initial setup was as follows:
 * I opened port 8080 on my master-machine VM.
 * Installed Jenkins on the VM using the following Docker command:  
