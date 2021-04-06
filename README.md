@@ -31,7 +31,7 @@ The following technologies have been used to implement the above features:
 3. Jenkins Pipeline is used for continuous building and deployment, as it offers fast and flexible automation.  
 4. Docker, Docker Compose, and Docker Swarm are used for containerisation and orchestration, as they are the most appropriate for simple deployment.  
 5. NGINX is utilised for as a reverse proxy and load-balancer, as it is a fast web server for handling a large amount of concurrent connections.  
-6. Ansible is used to write Playbooks to provision the environment that the application needs to run, it is open-source and easily accessible as Playbooks are written in YAML.  
+6. Ansible is used to write Playbooks for configuration management, it is open-source and easily accessible as Playbooks are written in YAML.  
 
 ## Planning:
 
@@ -40,10 +40,13 @@ For planning purposes, I created a Kanban Board on Trello. You can find it [here
 Here is the initial version of the Kanban Board, before it is fully populated:
 ![kanban1](https://i.gyazo.com/4aac637eed4855dca13ecbc25baf7575.png)
 
-## Risk Assessment and Issues:
+## Risks and Issues:
 
-...
-
+| Column1     | Column2     |
+| ----------- | ----------- |
+| Header      | Title       |
+| Paragraph   | Text        |
+  
 ## Cloud Server - GCP:
 
 When it comes to the Cloud, I utilised GCP. Here, you can see the four VMs I have created on Ubuntu 20.10:
@@ -55,7 +58,7 @@ By having all VMs set to europe-west2-b allows them to work together within a lo
 * worker-machine-1/2 - The two workers within the Swarm. They are connected to the Master, but contain little else.
 * nginx-machine - Balances the load between the master and worker machines. Contains the nginx.conf file.
 
-How these machines interact within the Swarm and the Network is neatly summarised by in this image (courtesy of Suner Suyleyman):
+How these machines interact within the Swarm and the Network is neatly summarised by this image (courtesy of Suner Syuleyman):
 
 ![networkoutline](https://i.gyazo.com/14f71366772d6355cd00e70cfeb6fb76.png)
 
