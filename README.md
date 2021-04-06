@@ -80,9 +80,19 @@ How these machines interact within the Swarm and the Network is neatly summarise
 
 ![networkoutline](https://i.gyazo.com/14f71366772d6355cd00e70cfeb6fb76.png)
 
-I also used a MySQL Database to store the generated strings and numbers from services 2 and 3, and the prizes generated from service 4. 
+I also created a MySQL Database to store the generated strings and numbers from services 2 and 3, and the prizes generated from service 4. 
 
-## CI Server - Jenkins:
+## Containerisation and Orchestration - Docker:
+### Docker Setup:
+
+* To install docker, I ran the following command:  
+    * sudo apt-get update  
+      sudo apt install curl -y  
+      curl https://get.docker.com | sudo bash  
+
+
+
+## CI/CD Server - Jenkins:
 ### Jenkins Setup:
 For CI and CD, I utilised Jenkins, and the initial setup was as follows:
 * I opened port 8080 on my master-machine VM.
@@ -94,6 +104,11 @@ For CI and CD, I utilised Jenkins, and the initial setup was as follows:
 * As you can see, the Pipeline had successfully connected to my GitHub and ran the Jenkinsfile script:  
 
 ![jenkinstest](https://i.gyazo.com/062a47a5a8f575fe00f0b8cdcd4f5e53.png)
+
+* To setup the CD aspect of Jenkins, so that I can easily deploy new versions of the application, I installed the Docker Pipeline plugin in Jenkins.  
+* This will pull changes to the source code from GitHub, build them, and then push them to DockerHub. It will also allow me to roll back to previous versions
+* With Jenkins, Docker, and Docker Compose installed, I defined stages within the Jenkinsfile to build an image, tag it with a version number, and then deploy it.
+* To connect Jenkins to DockerHub, I added my DockerHub credentials to the global Jenkins credentials. 
 
 ## Testing:
 
