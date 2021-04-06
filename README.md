@@ -42,14 +42,18 @@ Here is the initial version of the Kanban Board, before it is fully populated:
 
 ## Risks and Issues:
 
-Here are the risks and issues encountered throughout the development of the project. 
+Here are the risks and issues I encountered throughout the development of the project. 
 
 Here is the initial risk assessment I performed at the start of development:
 
-| Description     | Evaluation     | Likelihood     | Impact Level  | Responsibility    | Response          | Control Measures      |
-| --------------- | -------------- | ---------------| --------------| ------------------| ------------------| ----------------------|
-| Header     dfdfdfdfdfdf     | Title          | Medium         | Very High     | Mine
-| Paragraph   | Text        |
+| Description     | Evaluation     | Likelihood     | Impact Level  | Responsibility    | Response          | Control Measures      | Status |
+| --------------- | -------------- | ---------------| --------------| ------------------| ------------------| ----------------------| -------|
+| Run out of GCP Credits|Lose all access to VMs and Databases| Medium|  High| Devs | Create a new GMAIL account for a new free trial| Turn off VMs when not using them| Unmitigated |
+| Cloud Server is down | Cannot deploy application | Low | High | Google | Spin up a new VM with a new CSP | Keep source code up to date on GitHub | Unmitigated |
+| App goes down during an update to the code | Downtime for the application | Medium | High | Devs | 
+| Library updates create incompatibilities between languages | Application will not build properly | Medium | High | Devs | Backdate languages to when they were compatible | Specify and use compatible versions only| Unmitigated|
+| Floating VM IP makes accessing difficult between sessions | Cannot SSH in to the machine | High | Low | Devs | Reconnect using new IP | Keep known_hosts file clear, or using a static IP| Unmitigated|
+| Secret keys unsecured | Security risk, compromises secure connection | Medium | High | Devs | Take them down to maintain security | Declare as environment variables to avoid having the secret keys on GitHub | Unmitigated |
   
 ## Cloud Server - GCP:
 
