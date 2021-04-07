@@ -149,11 +149,11 @@ The instructions in each of the Dockerfiles are as follows:
 ### Containers:
 To define and run all 4 Docker containers simultaneously, I used Docker Compose. 
 The configuration of these containers is handled by the docker-compose.yaml file.  
-It creates each of our 4 services as their own container, with configuration for each as follows, where n = service number between 1 and 4:
-* servicen: - Defines the new service.
-* container_name: servicen - Names the container for the service.
-* build: ./servicen - Tells the container what to build.
-* image: servicen:latest - Defines what image to use.
+It creates each of our 4 services as their own container, with configuration for each as follows, where N = service number between 1 and 4:
+* serviceN: - Defines the new service.
+* container_name: serviceN - Names the container for the service.
+* build: ./serviceN - Tells the container what to build.
+* image: serviceN:latest - Defines what image to use.
 * ports: - Configures the port for the service.
 
 ## CI/CD Server - Jenkins:
