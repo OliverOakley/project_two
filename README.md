@@ -14,24 +14,24 @@ This application was built for training purposes only, and is not intended to be
 To access the code for this application, you can clone from my GitHub repository, [project_two.](https://github.com/OliverOakley/project_two)
 
 Python3 and pip3 are required on your Ubuntu 20.10 Linux machine to access the code. To access the code locally, run the following commands:  
-1. git init
-2. git clone https://github.com/OliverOakley/project_two
+1. git init  
+2. git clone https://github.com/OliverOakley/project_two  
 3. cd project_two  
 
 From here, you can access the microservice application and respective Docker containers, the docker-compose.yaml, the Jenkinsfile, and the Ansible Playbooks.
 
 ## Features:
 ### Application:
-The microservice application consists of four services, utilising the following architecture:  
+The microservice application consists of four services, each their own Docker container, utilising the following architecture:  
 * Service 1 - Front-end of the application; communicates with the other three services. Stores account and prize winnings in a MySQL Database.  
-* Service 2 - Create a random string of letters, with at least 2 different implementations.  
-* Service 3 - Create a random set of numbers, with at least 2 different implementations.  
-* Service 4 - Create an account based on objects from services 2 and 3. Determine if the user has 'won', with two different implementations.  
+* Service 2 - Creates a random string of letters, with at least 2 different implementations.  
+* Service 3 - Creates a random set of numbers, with at least 2 different implementations.  
+* Service 4 - Creates an account based on objects created in services 2 and 3. Determine if the user has 'won', with two different implementations.  
 
 The micorservice application utilises the following tech:  
 * Python is the main language in which the application is written.
 * Flask, SQLALchemy, and HTML (with Jinja2) are used to build the front-end of the application.
-* Docker is used to create each service as its own container, stored within DockerHub. 
+* Docker is used to create each service as its own container, stored within [my DockerHub repository.](https://hub.docker.com/repository/docker/oliveroakley/project_two)
 ### Infrastructure:
 The microservice application, as outlined above, is capable of being...:  
 1. Fully integrated using the Feature-Branch model into a Version Control System.  
@@ -42,16 +42,18 @@ The microservice application, as outlined above, is capable of being...:
 6. Having its environment provisioned so that it can run.  
 7. Fully tested to over 80% test coverage.  
 ### Tech:
-The following technologies have been used to implement the above architecture:  
+The following technologies have been used to implement the above infrastructure:  
 1. Git and GitHub are used for the Feature-Branch Model and Version Control System, as they are open-source industry staples.  
 2. GCP is used for Cloud Services as it is generous with its free trial, and Jenkins is used for the CI Server as it is open-source.  
 3. Jenkins Pipeline is used for continuous testing, building, and deployment, as it offers fast and flexible automation.  
 4. Docker, Docker Compose, and Docker Swarm are used for containerisation and orchestration, as they are the most appropriate for simple deployment.  
 5. NGINX is utilised for as a reverse proxy and load-balancer, as it is a fast web server for handling a large amount of concurrent connections.  
 6. Ansible is used to write Playbooks for configuration management, it is open-source and easily accessible as Playbooks are written in YAML.   
-7. Testing is performed using the flask-testing and pytest libraries.  
+7. Testing is performed using the Flask-testing and PyTest libraries.  
 
 ## Planning:
+
+Screenshots within this README.md are taken and stored using Gyazo Capture.  
 
 For planning purposes, I created a Kanban Board on Trello. You can find it [here.](https://trello.com/b/9rVOaiOL/dd-character-generator)
 
@@ -90,9 +92,9 @@ When it comes to the Cloud, I utilised GCP. Here, you can see the four VMs I hav
 ![gcp1](https://i.gyazo.com/e64d352407d892dba32784c49b813418.png)
 
 By having all VMs set to europe-west2-b allows them to work together within a network. Connected in this network, the VMs have their own roles:  
-* master-machine - The master of the Docker Swarm. It also creates the microservice application, connects to Jenkins, and connects to GitHub. Holds the Ansible Playbook to configure the other three VMs.
-* worker-machine-1/2 - The two workers within the Swarm. They are connected to the Master, but contain little else.
-* nginx-machine - Balances the load between the master and worker machines. Contains the nginx.conf file.
+* master-machine - The manager of the Docker Swarm. It also creates the microservice application, connects to Jenkins, and connects to GitHub. Holds the Ansible Playbook to configure the other three VMs.
+* worker-machine-1/2 - The two workers within the Swarm. They are connected to the Master via Docker Swarm, but contain little else.
+* nginx-machine - Acts as a reverse proxy and balances the load between the master and worker machines. Contains the nginx.conf file.
 
 How these machines interact within the Swarm and the Network is neatly summarised by this image (courtesy of Suner Syuleyman):
 
@@ -147,5 +149,7 @@ For CI and CD, I utilised Jenkins, and the initial setup was as follows:
 
 ## Credits:
 
-The application code was my own, with  spurred by the QA DevOps Practical Project specification.  
-Whilst the code is entirely my own, I owe a lot to the QA Community resources, my trainer Dara Oladapo, and fellow QA Trainees.
+The application is my own, spurred by the QA DevOps Practical Project specification.  
+I also utilised a lot of code (particularly for the front-end) from my QA Fundamental Project, found [here.](https://github.com/OliverOakley/project_one)  
+Whilst the code is entirely my own, I owe a lot to the QA Community resources, my trainer Dara Oladapo, and fellow QA Trainees.  
+The network outline image used in 'Cloud Server - GCP' section was created by a fellow QA Trainee, Suner Syuley.
