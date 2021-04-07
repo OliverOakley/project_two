@@ -112,12 +112,12 @@ The schema for the database is as follows:
 
 The database schema is defined in the service1/application/models.py.  
 The schema is created by running:
-* python3 create.py  
+* python3 create.py
+
 Which populates the database with the schema from service 1.
 
 ## Containerisation and Orchestration - Docker:
 ### Docker Setup:
-
 Docker, Docker Compose, and Docker Swarm are my containerisation and orchestration tools.
 
 I set up Docker and Docker Compose as follows:
@@ -136,21 +136,17 @@ I set up Docker and Docker Compose as follows:
 * I then created a docker-compose.yaml file where Docker Compose will be configured. 
 * Lastly, to store images, I created a DockerHub account and image repository, that is connected to my GitHub repository. 
     * Originally I planned to use Nexus, but had some issues getting it working, as stated under Risks and Issues.
-
 ### Images:
-
 Each service is its own Docker image, with the layers of the image defined in each services' Dockerfile.  
 The instructions in each of the Dockerfiles are as follows:
 * FROM python:3.7 - Defines the base image as python 3.7.
-* WORKDIR /.. - Defines the working directory for Docker instructions
+* WORKDIR /.. - Defines the working directory for Docker instructions.
 * COPY requirements.txt . - Copies the requirements.txt file, which has all the dependencies on it.
 * RUN pip3 install -r requirements.txt - Installs all the dependencies from the requirements.txt file.
-* COPY . . - Copies all files in the working directory to the iamge.
+* COPY . . - Copies all files in the working directory to the image.
 * EXPOSE 5002 - Selects the port through which the containers listen to the image.
 * ENTRYPOINT ["python", "app.py"] - Defines the main process for the container to run when it starts.
-
 ### Containers:
-
 To define and run all 4 Docker containers simultaneously, I used Docker Compose. 
 The configuration of these containers is handled by the docker-compose.yaml file.  
 It creates each of our 4 services as their own container, with configuration for each as follows, where n = service number between 1 and 4:
@@ -159,13 +155,9 @@ It creates each of our 4 services as their own container, with configuration for
 * build: ./servicen - Tells the container what to build.
 * image: servicen:latest - Defines what image to use.
 * ports: - Configures the port for the service.
-    * - target: 500n
-    * published: 500n
-    * protocol: tcp 
 
 ## CI/CD Server - Jenkins:
 ### Jenkins Setup:
-
 For CI and CD, I utilised Jenkins, and the initial setup was as follows:
 * I opened port 8080 on my master-machine VM.
 * Installed Jenkins on the VM using the following Docker command:  
