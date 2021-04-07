@@ -3,15 +3,25 @@
  
 This is a microservice application that generates an account, and then determines as to whether the generated account has won a prize or not.
  
-Whilst the application itself is simple, it is the deployment, buuilding, and hosting of the application that is of greatest concern here.
+Whilst the application itself is simple, it is the deployment, building, and hosting of the application that is of greatest concern here.
 
 This application was built following the QA Practical Project guidelines, my second project as a QAC DevOps Trainee.
 
 This application was built for training purposes only, and is not intended to be officially deployed or used.
 
+## Outline
+
+To access the code for this application, you can clone from [this GitHub repository.](https://github.com/OliverOakley/project_two)
+
+Python3 and pip3 are required on your Ubuntu 20.10 Linux machine to access the code. To access the code locally, run the following commands:  
+1. git init
+2. git clone https://github.com/OliverOakley/project_two
+3. cd project_two  
+From here, you can access the microservice application and respective Docker containers, the docker-compose.yaml, the Jenkinsfile, and the Ansible Playbooks.
+
 ## Requirements:
 ### Architecture:
-The microservice application must consist of four services, utilising the following architecture.  
+The microservice application must consist of four services, utilising the following architecture:  
 * Service 1 - Front-end of the application; communicates with the other three services.  
 * Service 2 - Create a random string of letters, with at least 2 different implementations.  
 * Service 3 - Create a random set of numbers, with at least 2 different implementations.  
@@ -71,8 +81,8 @@ When it comes to the Cloud, I utilised GCP. Here, you can see the four VMs I hav
 
 ![gcp1](https://i.gyazo.com/e64d352407d892dba32784c49b813418.png)
 
-By having all VMs set to europe-west2-b allows them to work together within a local network. Connected in this local network, the VMs have their own roles:  
-* master-machine - The master of the Docker Swarm. It also creates the microservice application, connects to Jenkins, and connects to GitHub.
+By having all VMs set to europe-west2-b allows them to work together within a network. Connected in this network, the VMs have their own roles:  
+* master-machine - The master of the Docker Swarm. It also creates the microservice application, connects to Jenkins, and connects to GitHub. Holds the Ansible Playbook to configure the other three VMs.
 * worker-machine-1/2 - The two workers within the Swarm. They are connected to the Master, but contain little else.
 * nginx-machine - Balances the load between the master and worker machines. Contains the nginx.conf file.
 
