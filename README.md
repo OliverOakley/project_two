@@ -53,8 +53,6 @@ The following technologies have been used to implement the above infrastructure:
 
 ## Planning:
 
-Screenshots within this README.md are taken and stored using Gyazo Capture.  
-
 For planning purposes, I created a Kanban Board on Trello. You can find it [here.](https://trello.com/b/9rVOaiOL/dd-character-generator)
 
 Here is a snippet of the initial version of the Kanban Board, before it is fully populated:
@@ -152,4 +150,5 @@ For CI and CD, I utilised Jenkins, and the initial setup was as follows:
 The application is my own, spurred by the QA DevOps Practical Project specification.  
 I also utilised a lot of code (particularly for the front-end) from my QA Fundamental Project, found [here.](https://github.com/OliverOakley/project_one)  
 Whilst the code is entirely my own, I owe a lot to the QA Community resources, my trainer Dara Oladapo, and fellow QA Trainees.  
-The network outline image used in 'Cloud Server - GCP' section was created by a fellow QA Trainee, Suner Syuley.
+The network outline image used in 'Cloud Server - GCP' section was created by a fellow QA Trainee, Suner Syuley.  
+Screenshots within this README.md are taken and stored using Gyazo Capture.  
