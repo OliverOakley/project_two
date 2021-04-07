@@ -111,10 +111,7 @@ The schema for the database is as follows:
     * Results_id - relates the amount won to the results of the dice roll/wheel spins from services 2 and 3.  
 
 The database schema is defined in the service1/application/models.py.  
-The schema is created by running:
-* python3 create.py
-
-Which populates the database with the schema from service 1.
+The schema is created by running 'python3 create.py', with the create.py file being stored in service1.
 
 ## Containerisation and Orchestration - Docker:
 ### Docker Setup:
@@ -138,13 +135,13 @@ I set up Docker and Docker Compose as follows:
     * Originally I planned to use Nexus, but had some issues getting it working, as stated under Risks and Issues.
 ### Images:
 Each service is its own Docker image, with the layers of the image defined in each services' Dockerfile.  
-The instructions in each of the Dockerfiles are as follows:
+The instructions in each of the Dockerfiles are as follows, where N = service number between 1 and 4:
 * FROM python:3.7 - Defines the base image as python 3.7.
-* WORKDIR /. . - Defines the working directory for Docker instructions.
+* WORKDIR /serviceN - Defines the working directory for the Docker instructions.
 * COPY requirements.txt . - Copies the requirements.txt file, which has all the dependencies on it.
 * RUN pip3 install -r requirements.txt - Installs all the dependencies from the requirements.txt file.
 * COPY . . - Copies all files in the working directory to the image.
-* EXPOSE 5002 - Selects the port through which the containers listen to the image.
+* EXPOSE 500N - Selects the port through which the containers listen to the image.
 * ENTRYPOINT ["python", "app.py"] - Defines the main process for the container to run when it starts.
 ### Containers:
 To define and run all 4 Docker containers simultaneously, I used Docker Compose. 
@@ -155,6 +152,7 @@ It creates each of our 4 services as their own container, with configuration for
 * build: ./serviceN - Tells the container what to build, and from where.
 * image: serviceN:latest - Defines what image to use.
 * ports: - Configures the port for the service.
+Now, if I run the command 'docker-compose up -d', it will create all four services.
 
 ## CI/CD Server - Jenkins:
 ### Jenkins Setup:
@@ -180,7 +178,7 @@ For CI and CD, I utilised Jenkins, and the initial setup was as follows:
 
 ## Credits:
 
-The application is my own, spurred by the QA DevOps Practical Project specification.  
+The application is my own creation, spurred by the QA DevOps Practical Project specification.  
 Whilst the code is entirely my own, I owe a lot to the QA Community resources, my trainers Dara Oladapo and Harry Volker, and my fellow QA Trainees.  
 I also utilised a lot of code (particularly for the front-end) from my QA Fundamental Project, found [here.](https://github.com/OliverOakley/project_one)    
 The network outline image used in 'Cloud Server - GCP' section was created by a fellow QA Trainee, Suner Syuleyman.  
