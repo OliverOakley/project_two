@@ -1,7 +1,7 @@
 # QA Practical Project - Prize Generator
 ## Outline:
  
-This is a microservice application that generates an account, and then determines as to whether the generated account has won a prize or not.
+This is a microservice application that 'spins three fruit wheels' and 'rolls a dice'. If at least two of the 'fruit wheels' match, the user wins 100 'dollarydoos'. The amount won is multiplied by the 'dice roll'.
  
 Whilst the application itself is simple, it is the deployment, building, and hosting of the application that is of greatest concern here.
 
@@ -24,9 +24,9 @@ From here, you can access the microservice application and respective Docker con
 ### Application:
 The microservice application consists of four services, each their own Docker container, utilising the following architecture:  
 * Service 1 - Front-end of the application; communicates with the other three services. Stores account and prize winnings in a MySQL Database.  
-* Service 2 - Creates a random string of letters, with at least 2 different implementations.  
-* Service 3 - Creates a random set of numbers, with at least 2 different implementations.  
-* Service 4 - Creates an account based on objects created in services 2 and 3. Determine if the user has 'won', with two different implementations.  
+* Service 2 - 'Rolls a dice' (i.e. generates a random number between 1 and 6).  
+* Service 3 - 'Spins three fruit wheels' (i.e. randomises three variables from a list that contains three different fruits)    
+* Service 4 - Creates a prize based on the dice roll in Service 2 and the spins in Service 3. Determine if the user has 'won', and how much they have won.  
 
 The micorservice application utilises the following tech:  
 * Python is the main language in which the application is written.
@@ -55,10 +55,14 @@ The following technologies have been used to implement the above infrastructure:
 
 For planning purposes, I created a Kanban Board on Trello. You can find it [here.](https://trello.com/b/9rVOaiOL/dd-character-generator)
 
-Here is a snippet of the initial version of the Kanban Board, before it is fully populated:
+Here is a part of the initial version of the Kanban Board, before it is fully populated:
 ![kanban1](https://i.gyazo.com/4aac637eed4855dca13ecbc25baf7575.png)
 
-## Risks and Issues:
+Here is a part of my Kanban board, approximately half-way through development:
+
+![kanban2](https://i.gyazo.com/b6379352cbe8ce23f5ece1a9b27ae3dc.png)
+
+## Risk Assessment:
 
 Here are the risks and issues I encountered throughout the development of the project. 
 
@@ -149,6 +153,7 @@ For CI and CD, I utilised Jenkins, and the initial setup was as follows:
 
 The application is my own, spurred by the QA DevOps Practical Project specification.  
 I also utilised a lot of code (particularly for the front-end) from my QA Fundamental Project, found [here.](https://github.com/OliverOakley/project_one)  
-Whilst the code is entirely my own, I owe a lot to the QA Community resources, my trainer Dara Oladapo, and fellow QA Trainees.  
-The network outline image used in 'Cloud Server - GCP' section was created by a fellow QA Trainee, Suner Syuley.  
+Whilst the code is entirely my own, I owe a lot to the QA Community resources, my trainers Dara Oladapo and Harry Volker, and my fellow QA Trainees.  
+The network outline image used in 'Cloud Server - GCP' section was created by a fellow QA Trainee, Suner Syuleyman.  
 Screenshots within this README.md are taken and stored using Gyazo Capture.  
+The free Visual Studio Code IDE was used to develop this application.  
