@@ -1,5 +1,5 @@
 # QA Practical Project - Prize Generator
-## Outline
+## Outline:
  
 This is a microservice application that generates an account, and then determines as to whether the generated account has won a prize or not.
  
@@ -9,9 +9,9 @@ This application was built following the QA Practical Project guidelines, my sec
 
 This application was built for training purposes only, and is not intended to be officially deployed or used.
 
-## Outline
+## Access:
 
-To access the code for this application, you can clone from [this GitHub repository.](https://github.com/OliverOakley/project_two)
+To access the code for this application, you can clone from my GitHub repository, [project_two.](https://github.com/OliverOakley/project_two)
 
 Python3 and pip3 are required on your Ubuntu 20.10 Linux machine to access the code. To access the code locally, run the following commands:  
 1. git init
@@ -20,29 +20,35 @@ Python3 and pip3 are required on your Ubuntu 20.10 Linux machine to access the c
 
 From here, you can access the microservice application and respective Docker containers, the docker-compose.yaml, the Jenkinsfile, and the Ansible Playbooks.
 
-## Requirements:
-### Architecture:
-The microservice application must consist of four services, utilising the following architecture:  
+## Features:
+### Application:
+The microservice application consists of four services, utilising the following architecture:  
 * Service 1 - Front-end of the application; communicates with the other three services.  
 * Service 2 - Create a random string of letters, with at least 2 different implementations.  
 * Service 3 - Create a random set of numbers, with at least 2 different implementations.  
-* Service 4 - Create an account based on objects from services 2 and 3. Determine if the user has 'won', with two different implementations. Store account and prize winnings in a MySQL Database.  
-### Features:
-As well as adhering to the above architecture, the application must be capable of being:  
+* Service 4 - Create an account based on objects from services 2 and 3. Determine if the user has 'won', with two different implementations. Store account and prize winnings in a MySQL Database.
+The micorservice application utilises the following tech:  
+* Python is the main language in which the application is written.
+* Flask, SQLALchemy, and HTML (with Jinja2) are used to build the front-end of the application.
+* Docker is used to create each service as its own container, stored within DockerHub. 
+### Infrastructure:
+The microservice application, as outlined above, is capable of being...:  
 1. Fully integrated using the Feature-Branch model into a Version Control System.  
-2. Be built through a CI Server and deployed to a cloud-based virtual machine.  
-3. Able to be updated and then recreated and redeployed by the CI Server via Webhooks.  
+2. Built through a CI Server and deployed to a cloud-based virtual machine.  
+3. Updated and then rebuilt and redeployed by the CI Server via Webhooks.  
 4. Deployed using containerisation and an orchestration tool.  
-5. Be accessible to the user via a reverse proxy.  
-6. Have an environment provisioned so that it can run.  
+5. Accessible to the user via a reverse proxy.  
+6. Having its environment provisioned so that it can run.  
+7. Fully tested to over 80% test coverage.  
 ### Tech:
-The following technologies have been used to implement the above features:  
+The following technologies have been used to implement the above architecture:  
 1. Git and GitHub are used for the Feature-Branch Model and Version Control System, as they are open-source industry staples.  
 2. GCP is used for Cloud Services as it is generous with its free trial, and Jenkins is used for the CI Server as it is open-source.  
-3. Jenkins Pipeline is used for continuous building and deployment, as it offers fast and flexible automation.  
+3. Jenkins Pipeline is used for continuous testing, building, and deployment, as it offers fast and flexible automation.  
 4. Docker, Docker Compose, and Docker Swarm are used for containerisation and orchestration, as they are the most appropriate for simple deployment.  
 5. NGINX is utilised for as a reverse proxy and load-balancer, as it is a fast web server for handling a large amount of concurrent connections.  
-6. Ansible is used to write Playbooks for configuration management, it is open-source and easily accessible as Playbooks are written in YAML.  
+6. Ansible is used to write Playbooks for configuration management, it is open-source and easily accessible as Playbooks are written in YAML.   
+7. Testing is performed using the flask-testing and pytest libraries.  
 
 ## Planning:
 
