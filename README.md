@@ -102,7 +102,18 @@ How these machines interact within the Swarm and the Network is neatly summarise
 
 ![networkoutline](https://i.gyazo.com/14f71366772d6355cd00e70cfeb6fb76.png)
 
-I also created a MySQL Database to store the generated strings and numbers from services 2 and 3, and the prizes generated from service 4. 
+I also created a MySQL Database on GCP to store the results of the dice roll/wheel spins and the prizes won.  
+The schema for the database is as follows:
+* Results Table:
+    * Stores the results of the dice roll and wheel spins as a single entry.
+* Prizes Table:
+    * Amount - stores the amount won, as determined by service 4.
+    * Results_id - relates the amount won to the results of the dice roll/wheel spins from services 2 and 3.  
+
+The database schema is defined in the service1/application/models.py.  
+The schema is created by running:
+    * python3 create.py  
+Which populates the database with the schema from service 1.
 
 ## Containerisation and Orchestration - Docker:
 ### Docker Setup:
