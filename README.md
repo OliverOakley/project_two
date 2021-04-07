@@ -23,12 +23,12 @@ From here, you can access the microservice application and respective Docker con
 ## Features:
 ### Application:
 The microservice application consists of four services, each their own Docker container, utilising the following architecture:  
-* Service 1 - Front-end of the application; communicates with the other three services. Stores account and prize winnings in a MySQL Database.  
+* Service 1 - Front-end of the application; communicates with the other three services. Stores rolls/spins and prize winnings in a MySQL Database.  
 * Service 2 - 'Rolls a dice' (i.e. generates a random number between 1 and 6).  
 * Service 3 - 'Spins three fruit wheels' (i.e. randomises three variables from a list that contains three different fruits)    
-* Service 4 - Creates a prize based on the dice roll in Service 2 and the spins in Service 3. Determine if the user has 'won', and how much they have won.  
+* Service 4 - Creates a prize based on the dice roll in Service 2 and the spins in Service 3. Determines if the user has 'won', and how much they have won.  
 
-The micorservice application utilises the following tech:  
+The microservice application utilises the following tech:  
 * Python is the main language in which the application is written.
 * Flask, SQLALchemy, and HTML (with Jinja2) are used to build the front-end of the application.
 * Docker is used to create each service as its own container, stored within [my DockerHub repository.](https://hub.docker.com/repository/docker/oliveroakley/project_two)
@@ -140,7 +140,7 @@ I set up Docker and Docker Compose as follows:
 Each service is its own Docker image, with the layers of the image defined in each services' Dockerfile.  
 The instructions in each of the Dockerfiles are as follows:
 * FROM python:3.7 - Defines the base image as python 3.7.
-* WORKDIR /.. - Defines the working directory for Docker instructions.
+* WORKDIR /. . - Defines the working directory for Docker instructions.
 * COPY requirements.txt . - Copies the requirements.txt file, which has all the dependencies on it.
 * RUN pip3 install -r requirements.txt - Installs all the dependencies from the requirements.txt file.
 * COPY . . - Copies all files in the working directory to the image.
@@ -152,7 +152,7 @@ The configuration of these containers is handled by the docker-compose.yaml file
 It creates each of our 4 services as their own container, with configuration for each as follows, where N = service number between 1 and 4:
 * serviceN: - Defines the new service.
 * container_name: serviceN - Names the container for the service.
-* build: ./serviceN - Tells the container what to build.
+* build: ./serviceN - Tells the container what to build, and from where.
 * image: serviceN:latest - Defines what image to use.
 * ports: - Configures the port for the service.
 
@@ -162,7 +162,7 @@ For CI and CD, I utilised Jenkins, and the initial setup was as follows:
 * I opened port 8080 on my master-machine VM.
 * Installed Jenkins on the VM using the following Docker command:  
     * docker run -d -p 8080:8080 --name jenkins jenkins/jenkins:lts-alpine
-* Navigated to 34.89.9.247:8080, I created a new user, installed the recommended plugins, and created a Pipeline for the Prize Generator.  
+* Navigated to VMPublicIP:8080, where I created a new user, installed the recommended plugins, and created a Pipeline for the Prize Generator.  
 * I then connected this Pipeline to my GitHub repo's master branch, where it would execute the script from the Jenkinsfile to build and deploy.  
 * As this setup was done before actually building the application, for testing purposes my initial Jenkinsfile only contained a simple script that would echo 'test' and then clear the workspace on a successful build.
 * As you can see, the Pipeline had successfully connected to my GitHub and ran the Jenkinsfile script:  
@@ -181,8 +181,8 @@ For CI and CD, I utilised Jenkins, and the initial setup was as follows:
 ## Credits:
 
 The application is my own, spurred by the QA DevOps Practical Project specification.  
-I also utilised a lot of code (particularly for the front-end) from my QA Fundamental Project, found [here.](https://github.com/OliverOakley/project_one)  
 Whilst the code is entirely my own, I owe a lot to the QA Community resources, my trainers Dara Oladapo and Harry Volker, and my fellow QA Trainees.  
+I also utilised a lot of code (particularly for the front-end) from my QA Fundamental Project, found [here.](https://github.com/OliverOakley/project_one)    
 The network outline image used in 'Cloud Server - GCP' section was created by a fellow QA Trainee, Suner Syuleyman.  
-Screenshots within this README.md are taken and stored using Gyazo Capture.  
+Screenshots within this README.md are taken and stored using Gyazo.  
 The free Visual Studio Code IDE was used to develop this application.  
