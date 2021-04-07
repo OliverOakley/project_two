@@ -27,6 +27,7 @@ The microservice application consists of four services, utilising the following 
 * Service 2 - Create a random string of letters, with at least 2 different implementations.  
 * Service 3 - Create a random set of numbers, with at least 2 different implementations.  
 * Service 4 - Create an account based on objects from services 2 and 3. Determine if the user has 'won', with two different implementations. Store account and prize winnings in a MySQL Database.
+
 The micorservice application utilises the following tech:  
 * Python is the main language in which the application is written.
 * Flask, SQLALchemy, and HTML (with Jinja2) are used to build the front-end of the application.
