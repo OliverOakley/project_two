@@ -23,10 +23,10 @@ From here, you can access the microservice application and respective Docker con
 ## Features:
 ### Application:
 The microservice application consists of four services, utilising the following architecture:  
-* Service 1 - Front-end of the application; communicates with the other three services.  
+* Service 1 - Front-end of the application; communicates with the other three services. Stores account and prize winnings in a MySQL Database.  
 * Service 2 - Create a random string of letters, with at least 2 different implementations.  
 * Service 3 - Create a random set of numbers, with at least 2 different implementations.  
-* Service 4 - Create an account based on objects from services 2 and 3. Determine if the user has 'won', with two different implementations. Store account and prize winnings in a MySQL Database.
+* Service 4 - Create an account based on objects from services 2 and 3. Determine if the user has 'won', with two different implementations.  
 
 The micorservice application utilises the following tech:  
 * Python is the main language in which the application is written.
