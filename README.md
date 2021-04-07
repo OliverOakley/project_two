@@ -17,6 +17,7 @@ Python3 and pip3 are required on your Ubuntu 20.10 Linux machine to access the c
 1. git init
 2. git clone https://github.com/OliverOakley/project_two
 3. cd project_two  
+
 From here, you can access the microservice application and respective Docker containers, the docker-compose.yaml, the Jenkinsfile, and the Ansible Playbooks.
 
 ## Requirements:
