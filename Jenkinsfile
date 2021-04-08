@@ -6,17 +6,17 @@ pipeline{
         stages{
             stage('Build'){
                 steps {
-                    sh chmod +x "./scripts/build.sh"
+                    chmod +x sh "./scripts/build.sh"
                 }
             }
             stage('Push'){
                 steps {
-                    sh chmod +x "./scripts/push.sh"
+                    chmod +x sh"./scripts/push.sh"
                 }
             }
             stage('Configure'){
                 steps {
-                    sh chmod +x "./scripts/configure.sh"
+                    chmod +x sh "./scripts/configure.sh"
                 }
             }         
         }
