@@ -13,6 +13,11 @@ pipeline{
                 steps {
                     sh 'docker-compose push'
                 }
+            }
+            stage('NGINX Configure'){
+                steps {
+                    sh 'ansible-playbook -i inventory.yaml playbook.yaml'
+                }
             }         
         }
     }

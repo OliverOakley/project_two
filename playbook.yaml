@@ -1,0 +1,18 @@
+- hosts: nginx-machine
+  roles:
+  - nginx
+
+- hosts: master-machine
+  roles:
+  - docker
+  - manager
+
+- hosts: worker-machine-1
+  roles:
+  - docker
+  - worker
+
+- hosts: worker-machine-2
+  roles:
+  - docker
+  - worker
