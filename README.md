@@ -86,6 +86,7 @@ Here is the risk assessment roughly halfway through development. Mitigated risks
 | Nexus image repository has internal issues | Cannot create and pull down images | High | High | Sonatype | Use a different image repo | Currently using DockerHub instead | Mitigated |
 | DockerHub is public rather than private | Images are less secure | Medium | Low | Devs/Docker | No response, ideally would use Nexus but its not working | Make sure nothing sensitive is uploaded to DockerHub | Mitigated |
 | Jenkins, Swarm Manager and Application all stored on the same machine | May make the application run very slowly | Medium | Medium | Devs | Take it down, run Jenkins on separate VM | Create separate Jenkins/Swarm Manager VMs| Unmitigated |
+| Not using virtual environments | If something goes wrong, it may brick my local machine  | Low | High | Devs | Restart the machine | Run testing and coding on venv | Unmitigated |
   
 ## Cloud Server - GCP:
 
