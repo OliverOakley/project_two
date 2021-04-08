@@ -21,6 +21,4 @@ pipeline{
             }         
         }
     }
-
-chmod+x
 // TEST - BUILD - PUSH - CONFIGURE - DEPLOY
