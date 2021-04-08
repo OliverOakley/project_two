@@ -6,21 +6,21 @@ pipeline{
         stages{
             stage('Build'){
                 steps {
-                    chmod +x sh "./scripts/build.sh"
+                    sh 'bash scripts/build.sh'
                 }
             }
             stage('Push'){
                 steps {
-                    chmod +x sh"./scripts/push.sh"
+                    sh 'bash scripts/push.sh'
                 }
             }
             stage('Configure'){
                 steps {
-                    chmod +x sh "./scripts/configure.sh"
+                    sh 'bash scripts/configure.sh'
                 }
             }         
         }
     }
 
-
+chmod+x
 // TEST - BUILD - PUSH - CONFIGURE - DEPLOY
