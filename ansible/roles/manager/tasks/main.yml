@@ -1,7 +1,7 @@
 ---
 # tasks file for master
 
-- name: 'Init Docker Swarm'
+- name: 'Initialise Docker Swarm'
   become: true
   community.docker.docker_swarm:
     state: present
