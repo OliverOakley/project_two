@@ -12,14 +12,14 @@ pipeline{
             }
             stage('Push'){
                 steps{
-                        docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_credentials'){
-                                image.push("${env.app_version}")
-                        }
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_credentials'){
+                        image.push("${env.app_version}")
                     }
                 }
             }
-
         }
+
+    }
 
 
 // TEST - BUILD - PUSH - CONFIGURE - DEPLOY
