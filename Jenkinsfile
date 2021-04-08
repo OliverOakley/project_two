@@ -20,6 +20,6 @@ pipeline{
             }
 
         }
-}
+
 
 // TEST - BUILD - PUSH - CONFIGURE - DEPLOY
