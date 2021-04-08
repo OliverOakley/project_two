@@ -12,8 +12,8 @@
       - lsb-release
       - python3
       - python3-pip
-      state: latest
-      update_cache: true
+    state: latest
+    update_cache: true
 - name: 'Docker apt key'
   become: true
   ansible.builtin.apt_key:
