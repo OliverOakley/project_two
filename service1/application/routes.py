@@ -1,5 +1,5 @@
 from application import app, db 
-from application.models import Prizes, Results
+from application.models import Prizes
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import requests
@@ -11,4 +11,9 @@ def home():
 
 @app.route('/prizegenerator', methods=['GET','POST'])
 def prizegenerator():
-    return render_template('prizegenerator.html')
+    result = requests.get('http://service4:5004/service4').json()
+    prize_to_add=Prizes(diceroll= result["dice_roll"], fruit= result["random_fruit"], amount= result["prize"])
+    db.session.add(prize_to_add)
+    db.session.commit()
+    prizes=Prizes.query.all()
+    return render_template('prizegenerator.html', prizes=prizes)

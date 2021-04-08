@@ -3,7 +3,7 @@ services:
   service1:
     container_name: service1
     build: ./service1
-    image: service1:latest
+    image: oliveroakley/service1:latest
     ports:
     - target: 5001
       published: 5001
@@ -11,7 +11,7 @@ services:
   service2:
     container_name: service2
     build: ./service2
-    image: service2:latest
+    image: oliveroakley/service2:latest
     ports:
     - target: 5002
       published: 5002
@@ -19,7 +19,7 @@ services:
   service3:
     container_name: service3
     build: ./service3
-    image: service3:latest
+    image: oliveroakley/service3:latest
     ports:
     - target: 5003
       published: 5003
@@ -27,7 +27,7 @@ services:
   service4:
     container_name: service4
     build: ./service4
-    image: service4:latest
+    image: oliveroakley/service4:latest
     ports:
     - target: 5004
       published: 5004

@@ -31,7 +31,7 @@ The microservice application consists of four services, each their own Docker co
 The microservice application utilises the following tech:  
 * Python is the main language in which the application is written.
 * Flask, SQLALchemy, and HTML (with Jinja2) are used to build the front-end of the application.
-* Docker is used to create each service as its own container, stored within [my DockerHub repository.](https://hub.docker.com/repository/docker/oliveroakley/project_two)
+* Docker is used to create each service as its own container, stored within [my DockerHub repository.](https://hub.docker.com/repository/docker/oliveroakley/service1)
 ### Infrastructure:
 The microservice application, as outlined above, is capable of being...:  
 1. Fully integrated using the Feature-Branch model into a Version Control System.  
@@ -53,7 +53,7 @@ The following technologies have been used to implement the above infrastructure:
 
 ## Planning:
 
-For planning purposes, I created a Kanban Board on Trello. You can find it [here.](https://trello.com/b/9rVOaiOL/dd-character-generator)
+For planning purposes, I created a Kanban Board on Trello. You can find it [here.](https://trello.com/b/9rVOaiOL/prize-generator)
 
 Here is a part of the initial version of the Kanban Board, before it is fully populated:
 ![kanban1](https://i.gyazo.com/4aac637eed4855dca13ecbc25baf7575.png)
@@ -104,11 +104,10 @@ How these machines interact within the Swarm and the Network is neatly summarise
 
 I also created a MySQL Database on GCP to store the results of the dice roll/wheel spins and the prizes won.  
 The schema for the database is as follows:
-* Results Table:
-    * Stores the results of the dice roll and wheel spins as a single entry.
 * Prizes Table:
-    * Amount - stores the amount won, as determined by service 4.
-    * Results_id - relates the amount won to the results of the dice roll/wheel spins from services 2 and 3.  
+    * Diceroll - Stores the dice roll from service 2.
+    * Fruit - Stores the three fruit spins from service 3.
+    * Amount - Stores the amount won from service 4.
 
 The database schema is defined in the service1/application/models.py.  
 The schema is created by running 'python3 create.py', with the create.py file being stored in service1.
@@ -131,8 +130,6 @@ I set up Docker and Docker Compose as follows:
       sudo curl -L "https://github.com/docker/compose/releases/download/${version}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
       sudo chmod +x /usr/local/bin/docker-compose
 * I then created a docker-compose.yaml file where Docker Compose will be configured. 
-* Lastly, to store images, I created a DockerHub account and image repository, that is connected to my GitHub repository. 
-    * Originally I planned to use Nexus, but had some issues getting it working, as stated under Risks and Issues.
 ### Images:
 Each service is its own Docker image, with the layers of the image defined in each services' Dockerfile.  
 The instructions in each of the Dockerfiles are as follows, where N = service number between 1 and 4:
@@ -150,9 +147,12 @@ It creates each of our 4 services as their own container, with configuration for
 * serviceN: - Defines the new service.
 * container_name: serviceN - Names the container for the service.
 * build: ./serviceN - Tells the container what to build, and from where.
-* image: serviceN:latest - Defines what image to use.
+* image: oliveroakley/serviceN:latest - Defines what image to use.
 * ports: - Configures the port for the service.
-Now, if I run the command 'docker-compose up -d', it will create all four services.
+Now, if I run the command 'docker-compose up', it will create all four services.  
+* Lastly, to store images, I created a DockerHub account and image repository, that is connected to my GitHub repository. 
+    * Originally I planned to use Nexus, but had some issues getting it working, as stated under Risks and Issues.
+    * Executing 'docker-compose push' will push the images to my [DockerHub.](https://hub.docker.com/repository/docker/oliveroakley/service1)
 
 ## CI/CD Server - Jenkins:
 ### Jenkins Setup:
@@ -183,4 +183,4 @@ Whilst the code is entirely my own, I owe a lot to the QA Community resources, m
 I also utilised a lot of code (particularly for the front-end) from my QA Fundamental Project, found [here.](https://github.com/OliverOakley/project_one)    
 The network outline image used in 'Cloud Server - GCP' section was created by a fellow QA Trainee, Suner Syuleyman.  
 Screenshots within this README.md are taken and stored using Gyazo.  
-The free Visual Studio Code IDE was used to develop this application.  
+The free Visual Studio Code IDE was used to develop this application.

@@ -1,19 +1,18 @@
 pipeline{
         agent any
         stages{
-            stage('test'){
+            stage('Build'){
                 steps {
-                    echo "test"
-
+                    sh 'docker-compose build'
                 }
+            }
+            stage('Push'){
+                steps {
+                    sh 'docker-compose push'
             }
         }
-        post { 
-            always { 
-                cleanWs()
-                }
-            }
+    }
 }
 
 
-TEST - BUILD - PUSH - CONFIGURE - DEPLOY
+// TEST - BUILD - PUSH - CONFIGURE - DEPLOY
