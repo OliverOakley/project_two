@@ -1,2 +1,11 @@
 ---
 # tasks file for worker
+
+- name: 'Join Swarm'
+  become: true
+  community.docker.docker_swarm:
+    state: join
+    advertise_addr: "{{ inventory_hostname }}"
+    join_token: "{{ hostvars['master-machine']['swarm_info']['swarm_facts']['JoinTokens']['worker'] }}"
+    remote_addrs: [ 'master-machine:2377' ]
+    
