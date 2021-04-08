@@ -168,11 +168,21 @@ For CI and CD, I utilised Jenkins, and the initial setup was as follows:
 
 ![jenkinstest](https://i.gyazo.com/062a47a5a8f575fe00f0b8cdcd4f5e53.png)
 
-* To setup the CD aspect of Jenkins, so that I can easily deploy new versions of the application, I installed the Docker Pipeline plugin in Jenkins.  
-* This will pull changes to the source code from GitHub, build them, and then push them to DockerHub. It will also allow me to roll back to previous versions
-* With Jenkins, Docker, and Docker Compose installed, I defined stages within the Jenkinsfile to build an image, tag it with a version number, and then deploy it.
-* To connect Jenkins to DockerHub, I added my DockerHub credentials to the global Jenkins credentials. 
+* To setup the CD aspect of Jenkins, so that I can easily deploy new versions of the application, I created a WebHook on GitHub to connect to Jenkins.  
+* This will pull changes to the source code from GitHub and build them automatically.
+### Credentials:
+I specified two important credentials within Jenkins:
+1. Docker Hub Credentials - This allows Jenkins to push images to my DockerHub repo 
+### Jenkinsfile:
+The Jenkinsfile tells the Jenkins Pipeline what to build.  
+My Jenkinsfile has 5 stages:
+1. Test - 
+2. Build - Builds the Docker containers and their images, i.e. the four services of the application.
+3. Push - Pushes the images that were built to my DockerHub.
+4. Configure - Runs the Ansible Playbook which configures nginx and Docker Swarm.
+5. Deploy - 
 
+As we can see here, the pipeline runs successfully
 ## Testing:
 
 

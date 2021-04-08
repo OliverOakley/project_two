@@ -6,17 +6,17 @@ pipeline{
         stages{
             stage('Build'){
                 steps {
-                    sh 'docker-compose build'
+                    sh('build.sh')
                 }
             }
             stage('Push'){
                 steps {
-                    sh 'docker-compose push'
+                    sh ('push.sh')
                 }
             }
-            stage('NGINX Configure'){
+            stage('Configure'){
                 steps {
-                    sh 'ansible-playbook -i inventory.yaml playbook.yaml'
+                    sh ('configure.sh')
                 }
             }         
         }
