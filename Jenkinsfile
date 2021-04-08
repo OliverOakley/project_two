@@ -6,17 +6,17 @@ pipeline{
         stages{
             stage('Build'){
                 steps {
-                    sh('build.sh')
+                    sh('/scripts/build.sh')
                 }
             }
             stage('Push'){
                 steps {
-                    sh ('push.sh')
+                    sh ('/scripts/push.sh')
                 }
             }
             stage('Configure'){
                 steps {
-                    sh ('configure.sh')
+                    sh ('/scripts/configure.sh')
                 }
             }         
         }
