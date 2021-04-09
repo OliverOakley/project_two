@@ -18,7 +18,7 @@ Python3 and pip3 are required on your Ubuntu 20.10 Linux machine to access the c
 2. git clone https://github.com/OliverOakley/project_two  
 3. cd project_two  
 
-From here, you can access the microservice application and respective Docker containers, the docker-compose.yaml, the Jenkinsfile, and the Ansible Playbooks.
+From here, you can access the microservice application and their tests, the docker-compose.yaml for containerisation, the Jenkinsfile, and the Ansible Playbooks.
 
 ## Features:
 ### Application:
@@ -31,7 +31,6 @@ The microservice application consists of four services, each their own Docker co
 The microservice application utilises the following tech:  
 * Python is the main language in which the application is written.
 * Flask, SQLALchemy, and HTML (with Jinja2) are used to build the front-end of the application.
-* Docker is used to create each service as its own container, stored within [my DockerHub repository.](https://hub.docker.com/repository/docker/oliveroakley/service1)
 ### Infrastructure:
 The microservice application, as outlined above, is capable of being...:  
 1. Fully integrated using the Feature-Branch model into a Version Control System.  
@@ -48,11 +47,11 @@ The following technologies have been used to implement the above infrastructure:
 3. Jenkins Pipeline is used for continuous testing, building, and deployment, as it offers fast and flexible automation.  
 4. Docker, Docker Compose, and Docker Swarm are used for containerisation and orchestration, as they are the most appropriate for simple deployment.  
 5. NGINX is utilised for as a reverse proxy and load-balancer, as it is a fast web server for handling a large amount of concurrent connections.  
-6. Ansible is used to write Playbooks for configuration management, it is open-source and easily accessible as Playbooks are written in YAML.   
-7. Testing is performed using the Flask-testing and PyTest libraries.  
+6. Ansible is used to write Playbooks to configure Docker Swarm and NGINX, as it is easily accessible as Playbooks are written in YAML.   
+7. Testing is performed using the Flask-testing and Pytest libraries.  
 
 ## Planning:
-
+### Kanban Board:
 For planning purposes, I created a Kanban Board on Trello. You can find it [here.](https://trello.com/b/9rVOaiOL/prize-generator)
 
 Here is a part of the initial version of the Kanban Board, before it is fully populated:
@@ -61,9 +60,7 @@ Here is a part of the initial version of the Kanban Board, before it is fully po
 Here is a part of my Kanban board, approximately half-way through development:
 
 ![kanban2](https://i.gyazo.com/b6379352cbe8ce23f5ece1a9b27ae3dc.png)
-
-## Risk Assessment:
-
+### Risk Assessment:
 Here are the risks and issues I encountered throughout the development of the project. 
 
 Here is the initial risk assessment I performed at the start of development:
@@ -77,17 +74,23 @@ Here is the initial risk assessment I performed at the start of development:
 | Floating VM IP makes accessing difficult between sessions | Cannot SSH in to the machine | High | Low | Devs | Reconnect using new IP | Keep known_hosts file clear, or using a static IP| Mitigated|
 | Secret keys unsecured | Security risk, compromises secure connection | Medium | High | Devs | Take them down to maintain security | Declare as environment variables to avoid having the secret keys on GitHub | Unmitigated |
 
-Here is the risk assessment roughly halfway through development. Mitigated risks from the previous iteration are removed in this assessment:
+Here is the risk assessment roughly halfway through development. Mitigated risks from the previous iteration are ommitted:
 
 | Description     | Evaluation     | Likelihood     | Impact Level  | Responsibility    | Response          | Control Measures      | Status |
 | --------------- | -------------- | ---------------| --------------| ------------------| ------------------| ----------------------| -------|
-| App goes down during an update to the code | Downtime for the application | Medium | High | Devs | Rebuild app with Jenkins | Continuous deployment with Jenkins so there is no downtime | Unmitigated |
-| Secret keys unsecured | Security risk, compromises secure connection | Medium | High | Devs | Take them down to maintain security | Declare as environment variables to avoid having the secret keys on GitHub | Unmitigated |
-| Nexus image repository has internal issues | Cannot create and pull down images | High | High | Sonatype | Use a different image repo | Currently using DockerHub instead | Mitigated |
-| DockerHub is public rather than private | Images are less secure | Medium | Low | Devs/Docker | No response, ideally would use Nexus but its not working | Make sure nothing sensitive is uploaded to DockerHub | Mitigated |
+| App goes down during an update to the code | Downtime for the application | Medium | High | Devs | Rebuild app with Jenkins | Setup Webhooks with Jenkins so there is no downtime | Mitigated |
+| Secret keys unsecured | Security risk, compromises secure connection | Medium | High | Devs | Take them down to maintain security | Declare as environment variables to avoid having the secret keys on GitHub | Mitigated |
+| Nexus image repository has internal issues | Cannot create and pull down images | High | High | Nexus | Use a different image repo | Currently using DockerHub instead | Mitigated |
+| DockerHub is public rather than private | Images are less secure | Medium | Low | Devs/Docker | No response, ideally would use Nexus but its not working | Make sure nothing sensitive is uploaded to DockerHub | Partially Mitigated |
 | Jenkins, Swarm Manager and Application all stored on the same machine | May make the application run very slowly | Medium | Medium | Devs | Take it down, run Jenkins on separate VM | Create separate Jenkins/Swarm Manager VMs| Unmitigated |
-| Not using virtual environments | If something goes wrong, it may brick my local machine  | Low | High | Devs | Restart the machine | Run testing and coding on venv | Unmitigated |
-  
+| Not using virtual environments | If something goes wrong, it may brick my local machine  | Low | Medium | Devs | Restart the machine | Run testing and coding on venv | Unmitigated |
+
+Here is the final version of my risk assessment. Mitigated risks from previous iterations are ommitted:
+
+| Description     | Evaluation     | Likelihood     | Impact Level  | Responsibility    | Response          | Control Measures      | Status |
+| --------------- | -------------- | ---------------| --------------| ------------------| ------------------| ----------------------| -------|
+| Unsecure SQL Database | SQL database can be accessed publicly | Low | Low | Don't store sensistive information on the database | Set network access to private only | Partially Mitigated | 
+
 ## Cloud Server - GCP:
 
 When it comes to the Cloud, I utilised GCP. Here, you can see the four VMs I have created on Ubuntu 20.10:
@@ -95,15 +98,15 @@ When it comes to the Cloud, I utilised GCP. Here, you can see the four VMs I hav
 ![gcp1](https://i.gyazo.com/e64d352407d892dba32784c49b813418.png)
 
 By having all VMs set to europe-west2-b allows them to work together within a network. Connected in this network, the VMs have their own roles:  
-* master-machine - The manager of the Docker Swarm. It also creates the microservice application, connects to Jenkins, and connects to GitHub. Holds the Ansible Playbook to configure the other three VMs.
-* worker-machine-1/2 - The two workers within the Swarm. They are connected to the Master via Docker Swarm, but contain little else.
-* nginx-machine - Acts as a reverse proxy and balances the load between the master and worker machines. Contains the nginx.conf file.
+* master-machine - The manager of the Docker Swarm. It also creates the microservice application, connects to Jenkins, and connects to GitHub. Holds the Ansible Playbook to configure the other three VMs with Swarm and NGINX.
+* worker-machine-1/2 - The two workers within the Swarm. They are connected to the Master via Docker Swarm.
+* nginx-machine - Acts as a reverse proxy for the app and as a load balancer for the Swarm.
 
 How these machines interact within the Swarm and the Network is neatly summarised by this image (courtesy of Suner Syuleyman):
 
 ![networkoutline](https://i.gyazo.com/14f71366772d6355cd00e70cfeb6fb76.png)
 
-I also created a MySQL Database on GCP to store the results of the dice roll/wheel spins and the prizes won.  
+I also created a MySQL Database instance on GCP to store the results of the dice roll/wheel spins and the prizes won.  
 The schema for the database is as follows:
 * Prizes Table:
     * Diceroll - Stores the dice roll from service 2.
@@ -155,13 +158,24 @@ Now, if I run the command 'docker-compose up', it will create all four services.
     * Originally I planned to use Nexus, but had some issues getting it working, as stated under Risks and Issues.
     * Executing 'docker-compose push' will push the images to my [DockerHub.](https://hub.docker.com/repository/docker/oliveroakley/service1)
 
+These steps are automated by the Jenkins Pipeline, where the 'Build' and 'Push' stages of the Jenkinsfile build the containers and push the images to my DockerHub.
+### Docker Swarm:
+Docker Swarm is used for containerisation orchestration to run the containers across multiple machines.  
+The Swarm Cluster consists of three VMs:
+* master-machine - The Swarm Manager, it manages the swarm cluster.
+    * The Dev/Jenkins machine and Swarm Manager machine are both the same VM, which may result in slow run times and may create issues if I were to setup another Swarm Manager within the cluster. This is outlined in my Risk Assessment above.  
+* worker-machine-1/2 - The Workers within the swarm, which run containers as per the instructions of the Manager.
+    * Configuring new Workers would involve simply adding them to the Swarm.  
+
+Configuration of the Swarm occurs during the 'Configuration' part of the Jenkins Pipeline. In particular, the Swarm is initialised by Ansible (see below).
+
 ## CI/CD Server - Jenkins:
 ### Jenkins Setup:
 For CI and CD, I utilised Jenkins, and the initial setup was as follows:
 * I opened port 8080 on my master-machine VM.
 * Installed Jenkins on the VM using the following Docker command:  
     * docker run -d -p 8080:8080 --name jenkins jenkins/jenkins:lts-alpine
-* Navigated to VMPublicIP:8080, where I created a new user, installed the recommended plugins, and created a Pipeline for the Prize Generator.  
+* Navigated to {{master-machineIP}}:8080, where I created a new user, installed the recommended plugins, and created a Pipeline for the Prize Generator.  
 * I then connected this Pipeline to my GitHub repo's master branch, where it would execute the script from the Jenkinsfile to build and deploy.  
 * As this setup was done before actually building the application, for testing purposes my initial Jenkinsfile only contained a simple script that would echo 'test' and then clear the workspace on a successful build.
 * As you can see, the Pipeline had successfully connected to my GitHub and ran the Jenkinsfile script:  
@@ -169,20 +183,62 @@ For CI and CD, I utilised Jenkins, and the initial setup was as follows:
 ![jenkinstest](https://i.gyazo.com/062a47a5a8f575fe00f0b8cdcd4f5e53.png)
 
 * To setup the CD aspect of Jenkins, so that I can easily deploy new versions of the application, I created a WebHook on GitHub to connect to Jenkins.  
-* This will pull changes to the source code from GitHub and build them automatically.
+* This will pull changes to the source code from GitHub automatically.
 ### Credentials:
 I specified two important credentials within Jenkins:
-1. Docker Hub Credentials - This allows Jenkins to push images to my DockerHub repo 
+1. Docker Hub Credentials - This allows Jenkins to push images to my DockerHub repository.
+2. Database URI - Stores the URI for the database as a secure secret, so it is not openly available in the source code. 
+    * This is then stored as an environment variable for the app to use when connecting to the database. This environment is set at the start of the Jenkins Pipeline.
 ### Jenkinsfile:
-The Jenkinsfile tells the Jenkins Pipeline what to build.  
+The Jenkinsfile tells the Jenkins Pipeline what to do when a build is scheduled.  
 My Jenkinsfile has 5 stages:
 1. Test - 
 2. Build - Builds the Docker containers and their images, i.e. the four services of the application.
+    * Does this by executing the 'docker-compose build' command.
 3. Push - Pushes the images that were built to my DockerHub.
-4. Configure - Runs the Ansible Playbook which configures nginx and Docker Swarm.
+    * Does this by executing the 'docker-compose push' command.
+    * It pushes to my DockerHub as I have set it as a credential in Jenkins.
+4. Configure - Runs the Ansible Playbook which configures the NGINX reverse proxy and load balancer, and the Docker Swarm.
+    * By running the Ansible Playbook, Jenkins essentially SSHs into each machine and configures them appropriately.
+    * How they are configured is defined by the Playbook and /ansible/roles. See 'Ansible' below for more information.
 5. Deploy - 
 
-As we can see here, the pipeline runs successfully
+The commands for these 5 Jenkinsfile stages are run from scripts, stored within the scripts folder. This is so any issues with stages of the Pipeline can be solved by editing the scripts rather than the Jenkinsfile itself.
+
+As we can see here, the Pipeline runs successfully:
+
+[!jenkinssuccess]
+
+## Ansible:
+### Ansible Setup:
+Ansible is used for environment configuration, in particular it defines the 'Configuration' step of the Jenkins Pipeline. All Ansible files are stored within the 'ansible' folder on my master-machine VM.  
+To install Ansible I executed the following script as the Jenkins user on my master-machine VM:
+* mkdir -p ~/.local/bin
+* echo 'PATH=$PATH:~/.local/bin' >> ~/.bashrc
+* source ~/.bashrc
+* sudo apt install python3-pip -y
+* pip3 install --user ansible
+* ansible --version
+Once installed, I generated an SSH key as Jenkins user on my master-machine VM, and then added them as an SSH on each VM on GCP.  
+This allows Jenkins to connect to each VM as a Jenkins user.
+### Roles:
+I use Ansible to configure the Docker Swarm and the NGINX load balancer across my four VMs.  
+To do this, I have defined four roles for Ansible to configure, created by executing 'ansible-galaxy init {name-of-role}'.  
+This application has four roles defined:
+* Docker - Installs Docker on master-machine and worker-machine-1/2. Is required to initialise the Docker Swarm.
+* Manager - Sets master-machine to be the Docker manager, which the workers will connect to.
+* Worker - Sets worker-machine-1/2 to workers within the Swarm.
+* NGINX - Installs NGINX on nginx-machine so it can act as a load balancer/reverse proxy.
+
+These four roles are found in /ansible/roles. Each role has a set of tasks that define how to assign each role to the VMs, such as installing dependencies, installing Docker from the repository, etc.  
+You can find the full list of tasks for each role within ansible/roles/{name-of-role}/tasks/main.
+### Playbook and Inventory:
+The Ansible Playbook, playbook.yaml, defines which hosts should have which role assigned to them.  
+It takes the information for the host VMs from the inventory.yaml file. My inventory.yaml uses the VM names rather than IPs, as my VMs have floating IPs.  
+Furthermore, the inventory.yaml file determines how Jenkins can connect to each VM, by defining the jenkins user and where it can find the ssh key required to connect to each VM.  
+So, when the Jenkins Pipeline executes the configure.sh script, it runs the command for executing the ansible playbook and inventory.  
+In doing so, the Jenkins user SSHs into each machine and sets their roles according to the playbook.
+
 ## Testing:
 
 
