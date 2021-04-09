@@ -83,7 +83,7 @@ Here is the risk assessment roughly halfway through development. Mitigated risks
 | Nexus image repository has internal issues | Cannot create and pull down images | High | High | Nexus | Use a different image repo | Currently using DockerHub instead | Mitigated |
 | DockerHub is public rather than private | Images are less secure | Medium | Low | Devs/Docker | No response, ideally would use Nexus but its not working | Make sure nothing sensitive is uploaded to DockerHub | Partially Mitigated |
 | Jenkins, Swarm Manager and Application all stored on the same machine | May make the application run very slowly | Medium | Medium | Devs | Take it down, run Jenkins on separate VM | Create separate Jenkins/Swarm Manager VMs| Mitigated |
-| Not using virtual environments | If something goes wrong, it may brick my local machine  | Low | Medium | Devs | Restart the machine | Run testing and coding on venv | Unmitigated |
+| Must use virtual environments for testing | pytest --cov doesn't work otherwise | Low | Low | Devs | Restart the machine | Run testing and coding on venv | Mitigated |
 
 Here is the final version of my risk assessment. Mitigated risks from previous iterations are ommitted:
 
@@ -95,12 +95,12 @@ Here is the final version of my risk assessment. Mitigated risks from previous i
 
 When it comes to the Cloud, I utilised GCP. Here, you can see the five VMs I have created on Ubuntu 20.10:
 
-![gcp1](https://i.gyazo.com/e64d352407d892dba32784c49b813418.png)
+![gcp1](https://i.gyazo.com/603c258a332654e0c9a08938539a3cf4.png)
 
 By having all VMs set to europe-west2-b allows them to work together within a network. Connected in this network, the VMs have their own roles:  
-* master-machine - Creates the microservice application, connects to Jenkins, and connects to GitHub. Holds the Ansible Playbook to configure the other four VMs with Swarm and NGINX.
+* master-machine - Creates the microservice application, connects to Jenkins, and connects to GitHub. Holds the Ansible Playbook to configure the other four VMs.
 * manager-machine - The manager of the Docker Swarm.
-* worker-machine-1/2 - The two workers within the Swarm. They are connected to the Master via Docker Swarm.
+* worker-machine-1/2 - The two workers within the Swarm. They are connected to the manager via Docker Swarm.
 * nginx-machine - Acts as a reverse proxy for the app and as a load balancer for the Swarm.
 
 How these machines interact within the Swarm and the Network is neatly summarised by this image (courtesy of Suner Syuleyman):
@@ -165,8 +165,8 @@ Docker Swarm is used for containerisation orchestration to run the containers ac
 The Swarm Cluster consists of three VMs:
 * manager-machine - The Swarm Manager, it manages the swarm cluster.
     * It is important that the Dev/Jenkins machine and Swarm Manager machine are not the same VM, as it may result in slow run times and may create issues if I were to setup another Swarm Manager within the cluster. This is outlined in my Risk Assessment above.  
-* worker-machine-1/2 - The Workers within the swarm, which run containers as per the instructions of the Manager.
-    * Configuring new Workers would involve simply adding them to the Swarm.  
+* worker-machine-1/2 - The Workers within the Swarm, which run containers as per the instructions of the Manager.
+    * Configuring new Workers would involve simply adding them to the Swarm, once having created the VM.  
 
 Configuration of the Swarm occurs during the 'Configuration' part of the Jenkins Pipeline. In particular, the Swarm is initialised by Ansible (see below).
 
@@ -194,21 +194,26 @@ I specified two important credentials within Jenkins:
 The Jenkinsfile tells the Jenkins Pipeline what to do when a build is scheduled.  
 My Jenkinsfile has 5 stages:
 1. Test - 
+    * It is important that this stage is first, so that a broken build is not deployed. 
 2. Build - Builds the Docker containers and their images, i.e. the four services of the application.
     * Does this by executing the 'docker-compose build' command.
 3. Push - Pushes the images that were built to my DockerHub.
     * Does this by executing the 'docker-compose push' command.
     * It pushes to my DockerHub as I have set the DockerHub credential in Jenkins, and logged in to DockerHub on the Jenkins user on my master-machine.
 4. Configure - Runs the Ansible Playbook which configures the NGINX reverse proxy and load balancer, and the Docker Swarm.
-    * By running the Ansible Playbook, Jenkins essentially SSHs into each machine and configures them appropriately.
+    * By running the Ansible Playbook, Jenkins SSHs into each machine and configures them appropriately.
     * How they are configured is defined by the Playbook and /ansible/roles. See 'Ansible' below for more information.
-5. Deploy - 
+5. Deploy - Deploys the application.
+    * It secure copies the docker-compose.yaml file from master-machine to manager-machine.
+    * It then SSHs into the manager machine as the Jenkins user and deploys the swarm stack.
 
 The commands for these 5 Jenkinsfile stages are run from scripts, stored within the scripts folder. This is so any issues with stages of the Pipeline can be solved by editing the scripts rather than the Jenkinsfile itself.
 
 As we can see here, the Pipeline runs successfully:
 
 [!jenkinssuccess]
+
+Once the Pipeline has successfully ran, you can navigate to the publicIP of the nginx-machine to access the application.
 
 ## Environment Configuration - Ansible:
 ### Ansible Setup:
@@ -227,7 +232,7 @@ This allows Jenkins to connect to each VM as a Jenkins user.
 I use Ansible to configure the Docker Swarm and the NGINX load balancer across my four VMs.  
 To do this, I have defined four roles for Ansible to configure, created by executing 'ansible-galaxy init {name-of-role}'.  
 This application has four roles defined:
-* Docker - Installs Docker on master-machine and worker-machine-1/2. Is required to initialise the Docker Swarm.
+* Docker - Installs Docker on manager-machine and worker-machine-1/2. Is required to initialise the Docker Swarm.
 * Manager - Sets manager-machine to be the Docker manager, which the workers will connect to.
 * Worker - Sets worker-machine-1/2 to workers within the Swarm.
 * NGINX - Installs NGINX on nginx-machine so it can act as a load balancer/reverse proxy.
@@ -238,7 +243,7 @@ You can find the full list of tasks for each role within ansible/roles/{name-of-
 The Ansible Playbook, playbook.yaml, defines which hosts should have which role assigned to them.  
 It takes the information for the host VMs from the inventory.yaml file. My inventory.yaml uses the VM names rather than IPs, as my VMs have floating IPs.  
 Furthermore, the inventory.yaml file determines how Jenkins can connect to each VM, by defining the jenkins user and where it can find the ssh key required to connect to each VM.  
-So, when the Jenkins Pipeline executes the configure.sh script, it runs the command for executing the ansible playbook and inventory.  
+So, when the Jenkins Pipeline executes the configure.sh script, it runs the command for executing the Ansible playbook and inventory.  
 In doing so, the Jenkins user SSHs into each machine and sets their roles according to the playbook.
 
 ## Testing:
