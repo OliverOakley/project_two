@@ -4,7 +4,7 @@ all:
   children:
     managers:
       hosts:
-        master-machine:
+        manager-machine:
     workers:
       hosts:
         worker-machine-1:

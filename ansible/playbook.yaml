@@ -2,7 +2,7 @@
   roles:
   - nginx
 
-- hosts: master-machine
+- hosts: manager-machine
   roles:
   - docker
   - manager
