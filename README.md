@@ -89,19 +89,25 @@ Here is the final version of my risk assessment. Mitigated risks from previous i
 
 | Description     | Evaluation     | Likelihood     | Impact Level  | Responsibility    | Response          | Control Measures      | Status |
 | --------------- | -------------- | ---------------| --------------| ------------------| ------------------| ----------------------| -------|
-| Unsecure SQL Database | SQL database can be accessed publicly | Low | Low | Don't store sensistive information on the database | Set network access to private only | Partially Mitigated | 
+| Unsecure SQL Database | SQL database can be accessed publicly | Low | Low | Devs | Don't store sensistive information on the database | Set network access to private only | Partially Mitigated | 
+| Can access all Swarm VMs publicly | Affects robustness of the build | Low | Low | Devs | Don't publish public IPs | Remove all network tags from Swarm VMs | Mitigated |
+| Can access all master-machine publicly | Affects robustness of the build | Low | Low | Devs | Don't publish the public IP | Set it so only I can access the machine | Unmitigated |
+
 
 ## Cloud Server - GCP:
 
 When it comes to the Cloud, I utilised GCP. Here, you can see the five VMs I have created on Ubuntu 20.10:
 
-![gcp1](https://i.gyazo.com/603c258a332654e0c9a08938539a3cf4.png)
+![gcp1](https://i.gyazo.com/ce27f7c8c827bb0c7db76e2129f3976a.png)
 
 By having all VMs set to europe-west2-b allows them to work together within a network. Connected in this network, the VMs have their own roles:  
 * master-machine - Creates the microservice application, connects to Jenkins, and connects to GitHub. Holds the Ansible Playbook to configure the other four VMs.
 * manager-machine - The manager of the Docker Swarm.
 * worker-machine-1/2 - The two workers within the Swarm. They are connected to the manager via Docker Swarm.
 * nginx-machine - Acts as a reverse proxy for the app and as a load balancer for the Swarm.
+
+The nginx-machine is accessible publicly, as a reverse proxy. The 3 Swarm machines are not accessible. This is for robustness of the deployment, as outlined in my Risk Assessment.  
+Ideally, the master-machine should only be accessible by my IP, rather than publicly, for the same reason as above. This is also outlined in my Risk Assessment.
 
 How these machines interact within the Swarm and the Network is neatly summarised by this image (courtesy of Suner Syuleyman):
 
@@ -235,7 +241,7 @@ This application has four roles defined:
 * Docker - Installs Docker on manager-machine and worker-machine-1/2. Is required to initialise the Docker Swarm.
 * Manager - Sets manager-machine to be the Docker manager, which the workers will connect to.
 * Worker - Sets worker-machine-1/2 to workers within the Swarm.
-* NGINX - Installs NGINX on nginx-machine so it can act as a load balancer/reverse proxy.
+* NGINX - Installs NGINX on nginx-machine so it can act as a load balancer/reverse proxy for the Swarm.
 
 These four roles are found in /ansible/roles. Each role has a set of tasks that define how to assign each role to the VMs, such as installing dependencies, installing Docker from the repository, etc.  
 You can find the full list of tasks for each role within ansible/roles/{name-of-role}/tasks/main.
