@@ -219,6 +219,7 @@ To install Ansible I executed the following script as the Jenkins user on my mas
 * sudo apt install python3-pip -y
 * pip3 install --user ansible
 * ansible --version
+
 Once installed, I generated an SSH key as Jenkins user on my master-machine VM, and then added them as an SSH on each VM on GCP.  
 This allows Jenkins to connect to each VM as a Jenkins user.
 ### Roles:
