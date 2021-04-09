@@ -9,23 +9,12 @@ This application was built following the QA Practical Project guidelines, my sec
 
 This application was built for training purposes only, and is not intended to be officially deployed or used.
 
-## Access:
-
-To access the code for this application, you can clone from my GitHub repository, [project_two.](https://github.com/OliverOakley/project_two)
-
-Python3 and pip3 are required on your Ubuntu 20.10 Linux machine to access the code. To access the code locally, run the following commands:  
-1. git init  
-2. git clone https://github.com/OliverOakley/project_two  
-3. cd project_two  
-
-From here, you can access the microservice application and their tests, the docker-compose.yaml for containerisation, the Jenkinsfile, and the Ansible Playbooks.
-
 ## Features:
 ### Application:
 The microservice application consists of four services, each their own Docker container, utilising the following architecture:  
 * Service 1 - Front-end of the application; communicates with the other three services. Stores rolls/spins and prize winnings in a MySQL Database.  
 * Service 2 - 'Rolls a dice' (i.e. generates a random number between 1 and 6).  
-* Service 3 - 'Spins three fruit wheels' (i.e. randomises three variables from a list that contains three different fruits)    
+* Service 3 - 'Spins three fruit wheels', similar to a one-arm bandit (i.e. randomises three variables from a list that contains three different fruits).    
 * Service 4 - Creates a prize based on the dice roll in Service 2 and the spins in Service 3. Determines if the user has 'won', and how much they have won.  
 
 The microservice application utilises the following tech:  
@@ -93,6 +82,31 @@ Here is the final version of my risk assessment. Mitigated risks from previous i
 | Can access all Swarm VMs publicly | Affects robustness of the build | Low | Low | Devs | Don't publish public IPs | Remove all network tags from Swarm VMs | Mitigated |
 | Can access all master-machine publicly | Affects robustness of the build | Low | Low | Devs | Don't publish the public IP | Set it so only I can access the machine | Unmitigated |
 | python3 create.py does not work | Can't drop or create tables | Low | Low | Devs | Manually SSH into database instance to create/drop | Set DATABASE_URI variable when starting a new terminal | Partially Mitigated | 
+
+## Version Control System - GitHub:
+### Access:
+To access the code for this application, you can clone from my GitHub repository, [project_two.](https://github.com/OliverOakley/project_two)
+
+Python3 and pip3 are required on your Ubuntu 20.10 Linux machine to access the code. To access the code locally, run the following commands:  
+1. git init  
+2. git clone https://github.com/OliverOakley/project_two  
+3. cd project_two  
+
+From here, you can access the microservice application and their tests, the docker-compose.yaml for containerisation, the Jenkinsfile, and the Ansible Playbooks.
+
+The branches of my GitHub repository are as follows:
+* master - The master branch, where Jenkins pulls the source code from to build the pipeline via Webhooks.
+* dev - The dev branch, used for committing changes to the source code without breaking the Jenkins Pipeline.
+* implementations - Contains slightly different source code for services 2-4. 
+### Implementations:
+As per the spec, there must be at least two implementations for services 2, 3, and 4, which can be implemented without the application going down.  
+Hence, there exists the 'implementations' branch, which holds these different implementations.  
+These different implementations are as follows:
+* Service 2 - Rolls an eight-sided die rather than a 6-sided die.
+* Service 3 - The fruit spins have 4 possible fruits rather than 3.
+* Service 4 - Appropriately changes the prizes available given the changes to services 2 and 3.
+
+The implementations branch, and changes to the source code, can be pushed to the master branch and then built by Jenkins Pipeline via Webhooks without the application going down.
 
 ## Cloud Server - GCP:
 
