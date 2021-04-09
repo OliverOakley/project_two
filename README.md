@@ -209,7 +209,7 @@ As we can see here, the Pipeline runs successfully:
 
 [!jenkinssuccess]
 
-## Ansible:
+## Environment Configuration - Ansible:
 ### Ansible Setup:
 Ansible is used for environment configuration, in particular it defines the 'Configuration' step of the Jenkins Pipeline. All Ansible files are stored within the 'ansible' folder on my master-machine VM.  
 To install Ansible I executed the following script as the Jenkins user on my master-machine VM:
