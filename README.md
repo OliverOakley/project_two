@@ -42,9 +42,9 @@ The microservice application, as outlined above, is capable of being...:
 7. Fully tested to over 80% test coverage.  
 ### Tech:
 The following technologies have been used to implement the above infrastructure:  
-1. Git and GitHub are used for the Feature-Branch Model and Version Control System, as they are open-source industry staples.  
+1. Git and GitHub are used for the Feature-Branch Model as part of a Version Control System, as they are open-source industry staples.  
 2. GCP is used for Cloud Services as it is generous with its free trial, and Jenkins is used for the CI Server as it is open-source.  
-3. Jenkins Pipeline is used for continuous testing, building, and deployment, as it offers fast and flexible automation.  
+3. Jenkins Pipeline is used for continuous testing, building, pushing, configuring, and deployment, as it offers fast and flexible automation.  
 4. Docker, Docker Compose, and Docker Swarm are used for containerisation and orchestration, as they are the most appropriate for simple deployment.  
 5. NGINX is utilised for as a reverse proxy and load-balancer, as it is a fast web server for handling a large amount of concurrent connections.  
 6. Ansible is used to write Playbooks to configure Docker Swarm and NGINX, as it is easily accessible as Playbooks are written in YAML.   
@@ -92,7 +92,7 @@ Here is the final version of my risk assessment. Mitigated risks from previous i
 | Unsecure SQL Database | SQL database can be accessed publicly | Low | Low | Devs | Don't store sensistive information on the database | Set network access to private only | Partially Mitigated | 
 | Can access all Swarm VMs publicly | Affects robustness of the build | Low | Low | Devs | Don't publish public IPs | Remove all network tags from Swarm VMs | Mitigated |
 | Can access all master-machine publicly | Affects robustness of the build | Low | Low | Devs | Don't publish the public IP | Set it so only I can access the machine | Unmitigated |
-
+| python3 create.py does not work | Can't drop or create tables | Low | Low | Devs | Manually SSH into database instance to create/drop | Set DATABASE_URI variable when starting a new terminal | Partially Mitigated | 
 
 ## Cloud Server - GCP:
 
@@ -121,7 +121,8 @@ The schema for the database is as follows:
     * Amount - Stores the amount won from service 4.
 
 The database schema is defined in the service1/application/models.py.  
-The schema is created by running 'python3 create.py', with the create.py file being stored in service1.
+The schema is created by running 'python3 create.py', with the create.py file being stored in service1.  
+Due to setting the DATABASE_URI as an environment variables for security reasons, this command to drop/create schema no longer works. This is outlined in my Risk Assessment. 
 
 ## Containerisation and Orchestration - Docker:
 ### Docker Setup:
@@ -211,7 +212,7 @@ My Jenkinsfile has 5 stages:
     * How they are configured is defined by the Playbook and /ansible/roles. See 'Ansible' below for more information.
 5. Deploy - Deploys the application.
     * It secure copies the docker-compose.yaml file from master-machine to manager-machine.
-    * It then SSHs into the manager machine as the Jenkins user and deploys the swarm stack.
+    * It then SSHs into the manager-machine as the Jenkins user and deploys the Swarm stack.
 
 The commands for these 5 Jenkinsfile stages are run from scripts, stored within the scripts folder. This is so any issues with stages of the Pipeline can be solved by editing the scripts rather than the Jenkinsfile itself.
 
@@ -246,11 +247,12 @@ This application has four roles defined:
 These four roles are found in /ansible/roles. Each role has a set of tasks that define how to assign each role to the VMs, such as installing dependencies, installing Docker from the repository, etc.  
 You can find the full list of tasks for each role within ansible/roles/{name-of-role}/tasks/main.
 ### Playbook and Inventory:
-The Ansible Playbook, playbook.yaml, defines which hosts should have which role assigned to them.  
-It takes the information for the host VMs from the inventory.yaml file. My inventory.yaml uses the VM names rather than IPs, as my VMs have floating IPs.  
-Furthermore, the inventory.yaml file determines how Jenkins can connect to each VM, by defining the jenkins user and where it can find the ssh key required to connect to each VM.  
-So, when the Jenkins Pipeline executes the configure.sh script, it runs the command for executing the Ansible playbook and inventory.  
-In doing so, the Jenkins user SSHs into each machine and sets their roles according to the playbook.
+To execute the roles specified, the playbook.yaml and inventory.yaml are used. For this application, they do the following:
+* The Ansible Playbook, playbook.yaml, defines which hosts should have which role assigned to them.  
+* It takes the information for the host VMs from the inventory.yaml file. My inventory.yaml uses the VM names rather than IPs, as my VMs have floating IPs.  
+* Furthermore, the inventory.yaml file determines how Jenkins can connect to each VM, by defining the jenkins user and where it can find the ssh key required to connect to each VM.  
+* So, when the Jenkins Pipeline executes the configure.sh script, it runs the command for executing the Ansible playbook and inventory.  
+* In doing so, the Jenkins user SSHs into each machine and sets their roles according to the playbook.
 
 ## Testing:
 
