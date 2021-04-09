@@ -82,7 +82,7 @@ Here is the risk assessment roughly halfway through development. Mitigated risks
 | Secret keys unsecured | Security risk, compromises secure connection | Medium | High | Devs | Take them down to maintain security | Declare as environment variables to avoid having the secret keys on GitHub | Mitigated |
 | Nexus image repository has internal issues | Cannot create and pull down images | High | High | Nexus | Use a different image repo | Currently using DockerHub instead | Mitigated |
 | DockerHub is public rather than private | Images are less secure | Medium | Low | Devs/Docker | No response, ideally would use Nexus but its not working | Make sure nothing sensitive is uploaded to DockerHub | Partially Mitigated |
-| Jenkins, Swarm Manager and Application all stored on the same machine | May make the application run very slowly | Medium | Medium | Devs | Take it down, run Jenkins on separate VM | Create separate Jenkins/Swarm Manager VMs| Unmitigated |
+| Jenkins, Swarm Manager and Application all stored on the same machine | May make the application run very slowly | Medium | Medium | Devs | Take it down, run Jenkins on separate VM | Create separate Jenkins/Swarm Manager VMs| Mitigated |
 | Not using virtual environments | If something goes wrong, it may brick my local machine  | Low | Medium | Devs | Restart the machine | Run testing and coding on venv | Unmitigated |
 
 Here is the final version of my risk assessment. Mitigated risks from previous iterations are ommitted:
@@ -93,12 +93,13 @@ Here is the final version of my risk assessment. Mitigated risks from previous i
 
 ## Cloud Server - GCP:
 
-When it comes to the Cloud, I utilised GCP. Here, you can see the four VMs I have created on Ubuntu 20.10:
+When it comes to the Cloud, I utilised GCP. Here, you can see the five VMs I have created on Ubuntu 20.10:
 
 ![gcp1](https://i.gyazo.com/e64d352407d892dba32784c49b813418.png)
 
 By having all VMs set to europe-west2-b allows them to work together within a network. Connected in this network, the VMs have their own roles:  
-* master-machine - The manager of the Docker Swarm. It also creates the microservice application, connects to Jenkins, and connects to GitHub. Holds the Ansible Playbook to configure the other three VMs with Swarm and NGINX.
+* master-machine - Creates the microservice application, connects to Jenkins, and connects to GitHub. Holds the Ansible Playbook to configure the other four VMs with Swarm and NGINX.
+* manager-machine - The manager of the Docker Swarm.
 * worker-machine-1/2 - The two workers within the Swarm. They are connected to the Master via Docker Swarm.
 * nginx-machine - Acts as a reverse proxy for the app and as a load balancer for the Swarm.
 
@@ -162,8 +163,8 @@ These steps are automated by the Jenkins Pipeline, where the 'Build' and 'Push' 
 ### Docker Swarm:
 Docker Swarm is used for containerisation orchestration to run the containers across multiple machines.  
 The Swarm Cluster consists of three VMs:
-* master-machine - The Swarm Manager, it manages the swarm cluster.
-    * The Dev/Jenkins machine and Swarm Manager machine are both the same VM, which may result in slow run times and may create issues if I were to setup another Swarm Manager within the cluster. This is outlined in my Risk Assessment above.  
+* manager-machine - The Swarm Manager, it manages the swarm cluster.
+    * It is important that the Dev/Jenkins machine and Swarm Manager machine are not the same VM, as it may result in slow run times and may create issues if I were to setup another Swarm Manager within the cluster. This is outlined in my Risk Assessment above.  
 * worker-machine-1/2 - The Workers within the swarm, which run containers as per the instructions of the Manager.
     * Configuring new Workers would involve simply adding them to the Swarm.  
 
@@ -227,7 +228,7 @@ I use Ansible to configure the Docker Swarm and the NGINX load balancer across m
 To do this, I have defined four roles for Ansible to configure, created by executing 'ansible-galaxy init {name-of-role}'.  
 This application has four roles defined:
 * Docker - Installs Docker on master-machine and worker-machine-1/2. Is required to initialise the Docker Swarm.
-* Manager - Sets master-machine to be the Docker manager, which the workers will connect to.
+* Manager - Sets manager-machine to be the Docker manager, which the workers will connect to.
 * Worker - Sets worker-machine-1/2 to workers within the Swarm.
 * NGINX - Installs NGINX on nginx-machine so it can act as a load balancer/reverse proxy.
 
