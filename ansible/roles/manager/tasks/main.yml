@@ -4,5 +4,5 @@
 - name: 'Initialise Docker Swarm'
   become: true
   community.docker.docker_swarm:
-    state: latest
+    state: present
   register: swarm_info

@@ -7,12 +7,12 @@
   - docker
   - manager
 
-- hosts: worker-machine-1
+- hosts: workers
   roles:
   - docker
   - worker
 
-- hosts: worker-machine-2
-  roles:
-  - docker
-  - worker
+# - hosts: worker-machine-2
+#   roles:
+#   - docker
+#   - worker

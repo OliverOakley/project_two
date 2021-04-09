@@ -8,7 +8,7 @@
       - apt-transport-https
       - ca-certificates
       - curl
-      - gnup
+      - gnupg2
       - lsb-release
       - python3
       - python3-pip
@@ -17,12 +17,13 @@
 - name: 'Docker apt key'
   become: true
   ansible.builtin.apt_key:
-    url: https://download.coker.com/linux/ubuntu/gpg
-    state: latest
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
 - name: 'Docker repo'
+  become: true
   apt_repository:
-    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ anisble_ distribution_release|lower}} stable
-    state: latest
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release|lower }} stable
+    state: present
 - name: 'Install Docker engine'
   become: true
   apt:
@@ -41,4 +42,4 @@
 - name: 'Install Docker SDK'
   become: true
   pip:
-  name: docker-py
+    name: docker-py
