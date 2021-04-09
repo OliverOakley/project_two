@@ -20,6 +20,7 @@ The microservice application consists of four services, each their own Docker co
 The microservice application utilises the following tech:  
 * Python is the main language in which the application is written.
 * Flask, SQLALchemy, and HTML (with Jinja2) are used to build the front-end of the application.
+* Developed using the Visual Studio Code IDE.
 ### Infrastructure:
 The microservice application, as outlined above, is capable of being...:  
 1. Fully integrated using the Feature-Branch model into a Version Control System.  
@@ -102,7 +103,7 @@ The branches of my GitHub repository are as follows:
 As per the spec, there must be at least two implementations for services 2, 3, and 4, which can be implemented without the application going down.  
 Hence, there exists the 'implementations' branch, which holds these different implementations.  
 These different implementations are as follows:
-* Service 2 - Rolls an eight-sided die rather than a 6-sided die.
+* Service 2 - Rolls an 8-sided die rather than a 6-sided die.
 * Service 3 - The fruit spins have 4 possible fruits rather than 3.
 * Service 4 - Appropriately changes the prizes available given the changes to services 2 and 3.
 
@@ -136,7 +137,7 @@ The schema for the database is as follows:
 
 The database schema is defined in the service1/application/models.py.  
 The schema is created by running 'python3 create.py', with the create.py file being stored in service1.  
-Due to setting the DATABASE_URI as an environment variables for security reasons, this command to drop/create schema no longer works. This is outlined in my Risk Assessment. 
+Due to setting the DATABASE_URI as an environment variable for security reasons, this command to drop/create schema no longer works. This is outlined in my Risk Assessment. 
 
 ## Containerisation and Orchestration - Docker:
 ### Docker Setup:
@@ -205,7 +206,7 @@ For CI and CD, I utilised Jenkins, and the initial setup was as follows:
 ![jenkinstest](https://i.gyazo.com/062a47a5a8f575fe00f0b8cdcd4f5e53.png)
 
 * To setup the CD aspect of Jenkins, so that I can easily deploy new versions of the application, I created a WebHook on GitHub to connect to Jenkins.  
-* This will pull changes to the source code from GitHub automatically.
+* This will pull changes to the source code from GitHub automatically., such as when the 'implementations' branch is pushed to master.
 ### Credentials:
 I specified two important credentials within Jenkins:
 1. Docker Hub Credentials - This allows Jenkins to push images to my DockerHub repository.
@@ -221,6 +222,7 @@ My Jenkinsfile has 5 stages:
 3. Push - Pushes the images that were built to my DockerHub.
     * Does this by executing the 'docker-compose push' command.
     * It pushes to my DockerHub as I have set the DockerHub credential in Jenkins, and logged in to DockerHub on the Jenkins user on my master-machine.
+    * Furthermore, the images as defined in the docker-compose.yaml file push to my DockerHub repository as they are named oliveroakley/{image-name}
 4. Configure - Runs the Ansible Playbook which configures the NGINX reverse proxy and load balancer, and the Docker Swarm.
     * By running the Ansible Playbook, Jenkins SSHs into each machine and configures them appropriately.
     * How they are configured is defined by the Playbook and /ansible/roles. See 'Ansible' below for more information.
@@ -279,4 +281,3 @@ Whilst the code is entirely my own, I owe a lot to the QA Community resources, m
 I also utilised a lot of code (particularly for the front-end) from my QA Fundamental Project, found [here.](https://github.com/OliverOakley/project_one)    
 The network outline image used in 'Cloud Server - GCP' section was created by a fellow QA Trainee, Suner Syuleyman.  
 Screenshots within this README.md are taken and stored using Gyazo.  
-The free Visual Studio Code IDE was used to develop this application.
