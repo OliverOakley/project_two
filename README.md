@@ -87,7 +87,7 @@ Here is the final version of my risk assessment. Mitigated risks from previous i
 
 ## Version Control System - GitHub:
 ### Access:
-To access the code for this application, you can clone from my GitHub repository, [project_two.](https://github.com/OliverOakley/project_two)
+To access the code for this application, you can clone from the GitHub repository, [project_two.](https://github.com/OliverOakley/project_two)
 
 Python3 and pip3 are required on your Ubuntu 20.10 Linux machine to access the code. To access the code locally, run the following commands:  
 1. git init  
