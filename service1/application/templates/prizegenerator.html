@@ -2,26 +2,9 @@
     <head>
         <body>
             <h1>The Results Are In!</h1> 
-                <br> 
-                <div>
-                    <table style="width:50%">
-                        <tr>
-                            <th>Dice Roll</th>
-                            <th>Fruit Roll</th>
-                            <th>Amount</th>
-                        </tr>
-                        {% for l in lastroll %}
-                        <tr>
-                        <td> {{ l.diceroll }} </td> 
-                        <td> {{ l.fruit }} </td>
-                        <td> {{ l.amount }} </td>
-                        <tr>
-                        </tr> {% endfor %}
-                    </table>     
-                <br> 
-                <br> <a href="{{url_for('prizegenerator')}}" type="button">Spin Again!</a> <br>
+                <br>    
                 <br>
-                <h2> Previous Spins</h2>
+                <h2> Your Last Five Spins</h2>
                 <div>
                     <table style="width:50%">
                         <tr>
@@ -37,6 +20,8 @@
                         <tr>
                         </tr> {% endfor %}
                     </table>        
+                <br> 
+                <br> <br> <a href="{{url_for('prizegenerator')}}" type="button">Spin Again!</a> <br>
                 <br> 
                 <br> <a href="{{url_for('home')}}" type="button">Back</a> <br>
         </body>

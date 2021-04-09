@@ -15,6 +15,5 @@ def prizegenerator():
     prize_to_add=Prizes(diceroll= result["dice_roll"], fruit= result["random_fruit"], amount= result["prize"])
     db.session.add(prize_to_add)
     db.session.commit()
-    lastroll = db.session.query(Prizes).order_by(Prizes.id.desc()).first().id
     prizes= Prizes.query.order_by(Prizes.id.desc()).limit(5).all()
     return render_template('prizegenerator.html', prizes=prizes)
