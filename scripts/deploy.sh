@@ -7,3 +7,4 @@
 # EOF
 
 docker stack deploy --compose-file docker-compose.yaml prizegenerator
+docker stack services
