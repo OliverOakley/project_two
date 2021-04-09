@@ -197,7 +197,7 @@ My Jenkinsfile has 5 stages:
     * Does this by executing the 'docker-compose build' command.
 3. Push - Pushes the images that were built to my DockerHub.
     * Does this by executing the 'docker-compose push' command.
-    * It pushes to my DockerHub as I have set it as a credential in Jenkins.
+    * It pushes to my DockerHub as I have set the DockerHub credential in Jenkins, and logged in to DockerHub on the Jenkins user on my master-machine.
 4. Configure - Runs the Ansible Playbook which configures the NGINX reverse proxy and load balancer, and the Docker Swarm.
     * By running the Ansible Playbook, Jenkins essentially SSHs into each machine and configures them appropriately.
     * How they are configured is defined by the Playbook and /ansible/roles. See 'Ansible' below for more information.
