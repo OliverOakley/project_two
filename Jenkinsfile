@@ -19,6 +19,11 @@ pipeline{
                     sh 'bash scripts/configure.sh'
                 }
             }         
+            stage('Deploy'){
+                steps {
+                    sh 'bash scripts/deploy.sh'
+                }
+            }         
         }
     }
 // TEST - BUILD - PUSH - CONFIGURE - DEPLOY
