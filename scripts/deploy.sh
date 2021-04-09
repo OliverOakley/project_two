@@ -6,4 +6,4 @@
 #     docker stack deploy --compose-file /home/olly/project_two/docker.compose.yaml todo-stack
 # EOF
 
-docker stack deploy --compose-file docker.compose.yaml 
+docker stack deploy --compose-file docker.compose.yaml prizegenerator
