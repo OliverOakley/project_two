@@ -2,6 +2,7 @@ from flask import url_for
 from flask_testing import TestCase
 from app import app
 import requests
+from mock import patch
 
 class TestBase(TestCase):
     def create_app(self):
