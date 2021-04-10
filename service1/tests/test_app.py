@@ -8,20 +8,7 @@ from mock import patch
 
 class TestBase(TestCase):
     def create_app(self):
-        app.config.update(SQLALCHEMY_DATABASE_URI="sqlite:////tmp/test.db",
-            SECRET_KEY='TEST_SECRET_KEY',
-            DEBUG=True,
-            WTF_CSRF_ENABLED=False
-            )
         return app
-    def setUp(self):
-        db.create_all()
-        test_prizes = Prizes(diceroll="20", fruit = "melon", amount = "120")
-        db.session.add(test_prizes)
-        db.session.commit()
-    def tearDown(self):
-        db.session.remove()
-        db.drop_all()
 
 class TestGetRequests(TestBase):
     def test_get_requests(self):
