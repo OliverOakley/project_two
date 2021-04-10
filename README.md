@@ -300,8 +300,13 @@ The software used for the testing is determined in the requirements.txt file, an
 * Flask-testing - Framework for testing Flask applications.
 * mock - Python testing library that allows us to mock objects for testing using patch.
 
-The tests for each service, and their coverage, is outlined below.
+The tests for each service, and their coverage, is outlined below.  
+Currently, each service has over 80% test coverage.
 ### Service 1 Tests:
+
+There are two tests for Service 1:
+1. A mock test that tests the get requests for the prizegenerator page using patch.
+2. An assert test that tests that the home page loads.
 
 The test report is as follows:
 
@@ -309,17 +314,26 @@ The test report is as follows:
 
 ### Service 2 Tests:
 
+There is only one test for Service 2:
+1. An assert test that tests that the page loads.
+
 The test report is as follows:
 
 ![service2cov](https://i.gyazo.com/b7219c396621e3bde64b7c303a482742.png)
 
 ### Service 3 Tests:
 
+There is only one test for Service 3:
+1. An assert test that tests that the page loads.
+
 The test report is as follows:
 
 ![service3cov](https://i.gyazo.com/59663c1644a2dbb09920db8aa70106dd.png)
 
 ### Service 4 Tests:
+
+There is only one test for Service 4:
+1. A mock test that tests the get requests for the service4 page using patch.
 
 The test report is as follows:
 
@@ -329,6 +343,6 @@ The test report is as follows:
 
 The application is my own creation, spurred by the QA DevOps Practical Project specification.  
 Whilst the code is entirely my own, I owe a lot to the QA Community resources, my trainers Dara Oladapo and Harry Volker, and my fellow QA Trainees.  
-I also utilised a lot of code (particularly for the front-end) from my QA Fundamental Project, found [here.](https://github.com/OliverOakley/project_one)    
+I also utilised a lot of code (particularly for the front-end) from my QA Fundamental Project, found [here.](https://github.com/OliverOakley/project_one)  
 The network outline image used in 'Cloud Server - GCP' section was created by a fellow QA Trainee, Suner Syuleyman.  
 Screenshots within this README.md are taken and stored using Gyazo.  
