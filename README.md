@@ -301,7 +301,7 @@ The software used for the testing is determined in the requirements.txt file, an
 * mock - Python testing library that allows us to mock objects for testing using patch.
 
 The tests for each service, and their coverage, is outlined below.  
-Currently, each service has over 80% test coverage.
+Currently, the average test coverage across the application is 84%.
 ### Service 1 Tests:
 
 There are two tests for Service 1:
