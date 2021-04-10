@@ -10,5 +10,5 @@ class TestBase(TestCase):
 
 class TestPrizeGenerator(TestBase):
     def test_prize_generator(self):
-        response = self.client.get(url_for('prizegenerator'), follow_redirects =True)
+        response = self.client.get(url_for('home'), follow_redirects =True)
         self.assertEqual(response.status_code, 200)
