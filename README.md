@@ -217,8 +217,9 @@ I specified two important credentials within Jenkins:
 ### Jenkinsfile:
 The Jenkinsfile tells the Jenkins Pipeline what to do when a build is scheduled.  
 My Jenkinsfile has 5 stages:
-1. Test - 
+1. Test - Performs the tests for each service, and returns their coverage report. See 'Testing' below for more information.
     * It is important that this stage is first, so that a broken build is not deployed. 
+    * To perform these tests the jenkins user activates a virtual environment as otherwise the tests fail to run properly, as outlined in my Risk Assessment.
 2. Build - Builds the Docker containers and their images, i.e. the four services of the application.
     * Does this by executing the 'docker-compose build' command.
 3. Push - Pushes the images that were built to my DockerHub.
@@ -236,7 +237,7 @@ The commands for these 5 Jenkinsfile stages are run from scripts, stored within 
 
 As we can see here, the Pipeline runs successfully:
 
-[!jenkinssuccess]
+[!jenkinssuccess](https://i.gyazo.com/8ce44d12044ec769170ced0366cb07a5.png)
 
 Once the Pipeline has successfully ran, you can navigate to the publicIP of the nginx-machine to access the application.
 
