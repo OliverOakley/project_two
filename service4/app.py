@@ -7,7 +7,7 @@ app = Flask(__name__)
 def service4():
     randomfruit = requests.get('http://service3:5003/service3').text
     diceroll = requests.get('http://service2:5002/service2').text
-    win_list = ['banana banana ', 'apple apple ', 'cherry cherry ', 'banana banana banana ', 'apple apple apple ', 'cherry cherry cherry ']
+    win_list = ['banana banana ', 'apple apple ', 'strawberry strawberry ', 'banana banana banana ', 'apple apple apple ', 'strawberry strawberry strawberry ']
     prize_string = ' '
     if any(ele in randomfruit for ele in win_list) and diceroll == '1':
         prize_string = '100'
@@ -21,6 +21,10 @@ def service4():
         prize_string = '500'
     elif any(ele in randomfruit for ele in win_list) and diceroll == '6':
         prize_string = '600'
+    elif any(ele in randomfruit for ele in win_list) and diceroll == '7':
+        prize_string = '700'
+    elif any(ele in randomfruit for ele in win_list) and diceroll == '8':
+        prize_string = '800'
     else:
         prize_string = '0'
     data = {"random_fruit": randomfruit, "dice_roll": diceroll, "prize": prize_string}
