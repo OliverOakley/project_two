@@ -7,7 +7,7 @@ app = Flask(__name__)
 def service4():
     randomfruit = requests.get('http://service3:5003/service3').text
     diceroll = requests.get('http://service2:5002/service2').text
-    win_list = ['banana banana ', 'apple apple ', 'cherry cherry ', 'banana banana banana ', 'apple apple apple ', 'cherry cherry cherry ']
+    win_list = ['banana banana ', 'apple apple ', 'melon melon ', 'banana banana banana ', 'apple apple apple ', 'melon melon melon ']
     prize_string = ' '
     if any(ele in randomfruit for ele in win_list) and diceroll == '1':
         prize_string = '100'
