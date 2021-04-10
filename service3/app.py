@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/service3', methods=['GET'])
 def service3():
-    fruit = ["apple ", "banana ", "cherry "]
+    fruit = ["apple ", "banana ", "strawberry "]
     fruit1 = random.choice(fruit)
     fruit2 = random.choice(fruit)
     fruit3 = random.choice(fruit)
