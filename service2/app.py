@@ -6,7 +6,7 @@ app = Flask(__name__)
 @app.route('/service2', methods=['GET'])
 def service2():
     number_string = ''
-    randomnumber = random.randint(1,6)
+    randomnumber = random.randint(1,8)
     number_string += str(randomnumber)
     return f'{number_string}'
 
