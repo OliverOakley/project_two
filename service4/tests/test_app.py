@@ -13,7 +13,7 @@ class TestGetRequests(TestBase):
         with patch('requests.get') as test:
             response = self.client.get(url_for('service4'))
             test.return_value.text = "test"
-            self.assertIn:(b'77', response.data)
+            self.assertIn:(b'test', response.data)
 
 class TestService4(TestBase):
     def test_service_4(self):
