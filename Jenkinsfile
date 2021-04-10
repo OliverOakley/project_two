@@ -4,6 +4,11 @@ pipeline{
             DATABASE_URI = credentials("DATABASE_URI")
         }
         stages{
+            stage('Test'){
+                steps {
+                    sh 'bash scripts/test.sh'
+                }
+            }
             stage('Build'){
                 steps {
                     sh 'bash scripts/build.sh'
@@ -26,4 +31,3 @@ pipeline{
             }         
         }
     }
-// TEST - BUILD - PUSH - CONFIGURE - DEPLOY
