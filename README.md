@@ -243,7 +243,7 @@ The commands for these 5 Jenkinsfile stages are run from scripts, stored within 
 
 As we can see here, the Pipeline runs successfully:
 
-[!jenkinssuccess](https://i.gyazo.com/8ce44d12044ec769170ced0366cb07a5.png)
+![jenkinssuccess](https://i.gyazo.com/8ce44d12044ec769170ced0366cb07a5.png)
 
 Once the Pipeline has successfully ran, you can navigate to the publicIP of the nginx-machine to access the application.
 
@@ -305,25 +305,25 @@ The tests for each service, and their coverage, is outlined below.
 
 The test report is as follows:
 
-[service1cov](https://i.gyazo.com/164c57c7e905e64cc615f57cbf66b546.png)
+![service1cov](https://i.gyazo.com/164c57c7e905e64cc615f57cbf66b546.png)
 
 ### Service 2 Tests:
 
 The test report is as follows:
 
-[service2cov](https://i.gyazo.com/b7219c396621e3bde64b7c303a482742.png)
+![service2cov](https://i.gyazo.com/b7219c396621e3bde64b7c303a482742.png)
 
 ### Service 3 Tests:
 
 The test report is as follows:
 
-[service3cov](https://i.gyazo.com/59663c1644a2dbb09920db8aa70106dd.png)
+![service3cov](https://i.gyazo.com/59663c1644a2dbb09920db8aa70106dd.png)
 
 ### Service 4 Tests:
 
 The test report is as follows:
 
-[service4cov](https://i.gyazo.com/d29308e8b9bd3420a1aa2b3963914ed5.png)
+![service4cov](https://i.gyazo.com/d29308e8b9bd3420a1aa2b3963914ed5.png)
 
 ## Credits:
 
