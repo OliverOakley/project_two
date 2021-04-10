@@ -18,4 +18,4 @@ class TestGetRequests(TestBase):
 class TestService4(TestBase):
     def test_service_4(self):
         response = self.client.get(url_for('service4'), follow_redirects =True)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 500)
