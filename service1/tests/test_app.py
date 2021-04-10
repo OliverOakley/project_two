@@ -30,12 +30,12 @@ class TestGetRequests(TestBase):
             test.return_value.text = "test"
             self.assertIn:(b'test', response.data)
 
-class TestService1(TestBase):
-    def test_service_2(self):
+class TestService1Home(TestBase):
+    def test_service_1_home(self):
         response = self.client.get(url_for('home'), follow_redirects =True)
         self.assertEqual(response.status_code, 200)
 
-class TestService1(TestBase):
-    def test_service_2(self):
+class TestService1PrizeGenerator(TestBase):
+    def test_service_1_prizegenerator(self):
         response = self.client.get(url_for('prizegenerator'), follow_redirects =True)
         self.assertEqual(response.status_code, 500)
