@@ -19,10 +19,3 @@ class TestService4(TestBase):
     def test_service_4(self):
         response = self.client.get(url_for('service4'), follow_redirects =True)
         self.assertEqual(response.status_code, 500)
-
-def test_init():
-  from app import app
-  with mock.patch.object(app, "main", return_value=42):
-    with mock.patch.object(app, "__name__", "__main__"):
-
-    assert mock_exit.call_args[0][0] == 42
