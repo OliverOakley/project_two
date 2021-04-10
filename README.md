@@ -111,7 +111,7 @@ As per the spec, there must be at least two implementations for services 2, 3, a
 Hence, there exists the 'implementations' branch, which holds these different implementations.  
 These different implementations are as follows:
 * Service 2 - Rolls an 8-sided die rather than a 6-sided die.
-* Service 3 - The fruit spins have 4 possible fruits rather than 3.
+* Service 3 - The fruit spins have different possible fruits (i.e. strawberry rather than cherry)
 * Service 4 - Appropriately changes the prizes available given the changes to services 2 and 3.
 
 The implementations branch, and changes to the source code, can be pushed to the master branch and then built by Jenkins Pipeline via Webhooks without the application going down.
