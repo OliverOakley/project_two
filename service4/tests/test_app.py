@@ -14,8 +14,3 @@ class TestGetRequests(TestBase):
             response = self.client.get(url_for('service4'))
             test.return_value.text = "test"
             self.assertIn:(b'test', response.data)
-
-class TestService4(TestBase):
-    def test_service_4(self):
-        response = self.client.get(url_for('service4'), follow_redirects =True)
-        self.assertEqual(response.status_code, 500)

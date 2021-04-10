@@ -8,7 +8,7 @@ from mock import patch
 
 class TestBase(TestCase):
     def create_app(self):
-        app.config.update(SQLALCHEMY_DATABASE_URI="sqlite:///",
+        app.config.update(SQLALCHEMY_DATABASE_URI="sqlite:////tmp/test.db",
             SECRET_KEY='TEST_SECRET_KEY',
             DEBUG=True,
             WTF_CSRF_ENABLED=False
@@ -34,8 +34,3 @@ class TestService1Home(TestBase):
     def test_service_1_home(self):
         response = self.client.get(url_for('home'), follow_redirects =True)
         self.assertEqual(response.status_code, 200)
-
-class TestService1PrizeGenerator(TestBase):
-    def test_service_1_prizegenerator(self):
-        response = self.client.get(url_for('prizegenerator'), follow_redirects =True)
-        self.assertEqual(response.status_code, 500)
