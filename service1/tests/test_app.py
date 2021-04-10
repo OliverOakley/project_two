@@ -9,7 +9,7 @@ from mock import patch
 class TestBase(TestCase):
     def create_app(self):
         return app
-     def setUp(self):
+    def setUp(self):
         db.create_all()
         test_prizes = Prizes(diceroll="20", fruit = "melon", amount = "120")
         db.session.add(test_prizes)
