@@ -15,6 +15,10 @@ class TestGetRequests(TestBase):
             test.return_value.text = "test"
             self.assertIn:(b'test', response.data)
 
+class TestPrizeGeneration(TestBase):
+    def test_prize_generation(self):
+        assert randomfruit('apple apple apple ') and assert diceroll('6')
+
 class TestService4(TestBase):
     def test_service_4(self):
         response = self.client.get(url_for('service4'), follow_redirects =True)

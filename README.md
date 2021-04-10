@@ -207,7 +207,8 @@ For CI and CD, I utilised Jenkins, and the initial setup was as follows:
 ![jenkinstest](https://i.gyazo.com/062a47a5a8f575fe00f0b8cdcd4f5e53.png)
 
 * To setup the CD aspect of Jenkins, so that I can easily deploy new versions of the application, I created a WebHook on GitHub to connect to Jenkins.  
-* This will pull changes to the source code from GitHub automatically., such as when the 'implementations' branch is pushed to master.
+* When a push is made to the master branch, Jenkins will automatically pull these changes from GitHub and start a new Pipeline build.
+* Due to the master-machine IP being ephemeral, the Webhook needs to be updated if the VM is restarted, as mentioned in my Risk Assessment.
 ### Credentials:
 I specified two important credentials within Jenkins:
 1. Docker Hub Credentials - This allows Jenkins to push images to my DockerHub repository.
