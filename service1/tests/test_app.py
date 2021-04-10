@@ -8,7 +8,7 @@ class TestBase(TestCase):
     def create_app(self):
         return app
 
-class TestPrizeGenerator(TestBase):
-    def test_prize_generator(self):
+class TestService1(TestBase):
+    def test_service_2(self):
         response = self.client.get(url_for('home'), follow_redirects =True)
         self.assertEqual(response.status_code, 200)
