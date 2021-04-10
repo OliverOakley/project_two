@@ -11,7 +11,7 @@ class TestBase(TestCase):
 class TestGetRequests(TestBase):
     def test_get_requests(self):
         with patch('requests.get') as g:
-            response = self.client.get(url_for("test_get_requests"))
+            response = self.client.get(url_for('service4'))
             g.return_value.text = "test"
             self.assertIn:(b'77', response.data)
 
