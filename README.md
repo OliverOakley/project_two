@@ -42,7 +42,8 @@ The following technologies have been used to implement the above infrastructure:
 
 ## Planning:
 ### Kanban Board:
-For planning purposes, I created a Kanban Board on Trello. You can find it [here.](https://trello.com/b/9rVOaiOL/prize-generator)
+For planning purposes, I created a Kanban Board on Trello.  
+The Kanban board is too large to fully demonstrate in these screenshots, and so you can find the completed board [here.](https://trello.com/b/9rVOaiOL/prize-generator)
 
 Here is a part of the initial version of the Kanban Board, before it is fully populated:
 ![kanban1](https://i.gyazo.com/4aac637eed4855dca13ecbc25baf7575.png)
@@ -50,6 +51,11 @@ Here is a part of the initial version of the Kanban Board, before it is fully po
 Here is a part of my Kanban board, approximately half-way through development:
 
 ![kanban2](https://i.gyazo.com/b6379352cbe8ce23f5ece1a9b27ae3dc.png)
+
+Here is a part of my Kanban board, once I had completed the project:
+
+![kanban3](https://i.gyazo.com/72368571d451405b6ec4a2779def1896.png)
+
 ### Risk Assessment:
 Here are the risks and issues I encountered throughout the development of the project. 
 
@@ -274,6 +280,28 @@ To execute the roles specified, the playbook.yaml and inventory.yaml are used. F
 * In doing so, the Jenkins user SSHs into each machine and sets their roles according to the playbook.
 
 ## Testing:
+### Setup:
+As there are four services in this microservice application, each service needs to be tested. As such, in each service there is a testing folder, in which the tests for that particular service are written.  
+The testing is automated as part of the Jenkins Pipeline, and is the first stage so that if a test fails, the build will stop before it tries to deploy broken code.  
+The Jenkins Pipeline runs the tests by executing the 'test.sh' file, found in the scripts folder.
+Executing this script does a number of things:
+1. Firstly, it installs the virtual environment plugin for python3.
+2. It then creates a new virtual environment.
+3. It activates this new virtual enviornment.
+4. Installs all of the required software on to this virtual environment from the requirements.txt file.
+5. It then tests each service individually by:
+    * Defining which service to test (e.g. service1).
+    * Restricting the coverage to that service only (e.g. cov=service1).
+    * Reports the coverage of the tests for that service, and what parts of the source code have been missed by the tests (e.g. cov-report=term-missing).
+
+The software used for the testing is determined in the requirements.txt file, and is as follows:
+* pytest - Framework that the tests are written in.
+* pytest-cov - Package for pytest that allows us to see the code coverage of the tests.
+* Flask-testing - Framework for testing Flask applications.
+* mock - Python testing library that allows us to mock objects for testing using patch.
+
+The tests for each service, and their coverage, is outlined below.
+### Service 1 Tests:
 
 
 
