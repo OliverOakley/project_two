@@ -10,9 +10,9 @@ class TestBase(TestCase):
 
 class TestGetRequests(TestBase):
     def test_get_requests(self):
-        with patch('requests.get') as g:
+        with patch('requests.get') as test:
             response = self.client.get(url_for('service4'))
-            g.return_value.text = "test"
+            test.return_value.text = "test"
             self.assertIn:(b'77', response.data)
 
 class TestService4(TestBase):
