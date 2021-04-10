@@ -169,7 +169,7 @@ Each service is its own Docker image, with the layers of the image defined in ea
 The instructions in each of the Dockerfiles are as follows, where N = service number between 1 and 4:
 * FROM python:3.7 - Defines the base image as python 3.7.
 * WORKDIR /serviceN - Defines the working directory for the Docker instructions.
-* COPY requirements.txt . - Copies the requirements.txt file, which has all the dependencies on it.
+* COPY requirements.txt . - Copies the requirements.txt file, which has all the dependencies on it. Each service folder requires its own requirements.txt file.
 * RUN pip3 install -r requirements.txt - Installs all the dependencies from the requirements.txt file.
 * COPY . . - Copies all files in the working directory to the image.
 * EXPOSE 500N - Selects the port through which the containers listen to the image.

@@ -4,4 +4,8 @@ Flask-wtf
 WTForms
 SQLAlchemy==1.3.23
 pymysql
+pytest
+pytest-cov
+Flask-testing
 requests
+mock
